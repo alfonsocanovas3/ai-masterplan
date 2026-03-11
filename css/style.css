@@ -183,6 +183,9 @@ a:focus-visible, button:focus-visible {
 .page-body {
   padding-top: var(--nav-height);
 }
+.container-with-filters {
+  padding-top: 138px;
+}
 .section {
   padding: 48px 0;
 }
@@ -346,6 +349,9 @@ a:focus-visible, button:focus-visible {
   font-size: 0.9375rem;
   margin-bottom: 8px;
   line-height: 1.7;
+}
+.exec-summary strong, .section strong {
+  color: var(--text-primary);
 }
 .exec-summary .update-note {
   color: var(--status-new);
@@ -683,12 +689,15 @@ a:focus-visible, button:focus-visible {
   font-style: italic;
 }
 .agent-expand {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-slow);
+}
+.agent-expand > * {
   overflow: hidden;
-  transition: max-height var(--transition-slow);
 }
 .agent-card.expanded .agent-expand {
-  max-height: 500px;
+  grid-template-rows: 1fr;
 }
 
 /* Magnus flow */

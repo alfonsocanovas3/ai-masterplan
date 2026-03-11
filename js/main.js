@@ -31,8 +31,21 @@ document.addEventListener('DOMContentLoaded', function() {
 function initCardExpand() {
   var cards = document.querySelectorAll('.agent-card');
   cards.forEach(function(card) {
+    // Make cards keyboard-accessible
+    if (!card.getAttribute('tabindex')) card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-expanded', 'false');
+
     card.addEventListener('click', function() {
-      this.classList.toggle('expanded');
+      var isExpanded = this.classList.toggle('expanded');
+      this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    });
+
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
     });
   });
 }
