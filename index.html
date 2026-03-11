@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dolead AI Agents Masterplan</title>
+<style>
+:root {
+  --primary: #0F2041;
+  --accent: #2563EB;
+  --green: #10B981;
+  --orange: #F59E0B;
+  --red: #EF4444;
+  --purple: #8B5CF6;
+  --cyan: #06B6D4;
+  --gray: #6B7280;
+  --bg: #F8FAFC;
+  --card: #FFFFFF;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--primary); line-height: 1.6; }
+
+/* Header */
+.header { background: var(--primary); color: white; padding: 32px 40px; position: relative; overflow: hidden; }
+.header::after { content: ''; position: absolute; top: 0; right: 0; width: 400px; height: 100%; background: linear-gradient(135deg, transparent 0%, rgba(37,99,235,0.15) 100%); }
+.header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 24px; position: relative; z-index: 1; }
+.header img { height: 32px; filter: brightness(0) invert(1); }
+.header h1 { font-size: 22px; font-weight: 600; }
+.header .subtitle { font-size: 13px; opacity: 0.7; margin-top: 2px; }
+.header .version-tag { display: inline-block; background: rgba(37,99,235,0.3); color: #93C5FD; font-size: 11px; padding: 2px 10px; border-radius: 10px; margin-left: 8px; font-weight: 600; }
+
+/* Sticky Nav */
+.nav { background: white; border-bottom: 1px solid #E5E7EB; padding: 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.nav a { padding: 12px 16px; font-size: 13px; font-weight: 500; color: var(--gray); text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.nav a:hover { color: var(--primary); background: #F9FAFB; }
+.nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+/* Executive Summary */
+.exec-summary { background: white; border-radius: 12px; padding: 28px 32px; margin-bottom: 32px; border-left: 4px solid var(--accent); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.exec-summary h2 { font-size: 18px; margin-bottom: 12px; color: var(--accent); }
+.exec-summary p { font-size: 14px; color: #374151; margin-bottom: 8px; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 20px 0; }
+.stat-card { background: #F0F4FF; border-radius: 8px; padding: 16px; text-align: center; }
+.stat-card .num { font-size: 28px; font-weight: 700; color: var(--primary); }
+.stat-card .label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+/* Correction Banner */
+.correction-banner { background: #FEF3C7; border: 1px solid #FCD34D; border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; }
+.correction-banner h3 { font-size: 15px; color: #92400E; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.correction-banner .correction-item { font-size: 13px; color: #78350F; padding: 4px 0; display: flex; gap: 8px; }
+.correction-banner .correction-item .old { text-decoration: line-through; color: #B45309; }
+.correction-banner .correction-item .new { font-weight: 600; }
+
+/* Section styling */
+.section-block { margin-bottom: 48px; scroll-margin-top: 60px; }
+.section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #E5E7EB; display: flex; align-items: center; gap: 10px; }
+
+/* Role sections */
+.role-section { margin-bottom: 36px; }
+.role-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #E5E7EB; }
+.role-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; flex-shrink: 0; }
+.role-header h2 { font-size: 18px; font-weight: 600; }
+.role-header .role-desc { font-size: 12px; color: var(--gray); }
+.role-header .correction { font-size: 11px; color: #B45309; background: #FEF3C7; padding: 2px 8px; border-radius: 6px; margin-left: 4px; }
+
+/* Agent cards */
+.agent-card { background: white; border-radius: 10px; padding: 20px 24px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 4px solid var(--accent); position: relative; transition: transform 0.15s, box-shadow 0.15s; }
+.agent-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.agent-card.exists { border-left-color: var(--green); }
+.agent-card.partial { border-left-color: var(--orange); }
+.agent-card.near { border-left-color: var(--orange); }
+.agent-card.new { border-left-color: var(--accent); }
+.agent-card.magnus { border-left-color: transparent; background: linear-gradient(135deg, #0F2041 0%, #1E3A5F 100%); color: white; padding: 28px 32px; }
+.agent-card.magnus .agent-name { color: white; font-size: 18px; }
+.agent-card.magnus .agent-desc { color: #CBD5E1; font-size: 14px; }
+.agent-card.magnus .agent-meta { color: #94A3B8; }
+.agent-card.magnus .agent-meta strong { color: #E2E8F0; }
+.agent-card.magnus .badge.new { background: rgba(255,255,255,0.15); color: white; }
+.agent-card.magnus .highlight { background: rgba(255,255,255,0.1); color: #93C5FD; }
+.agent-card.magnus .process-ref { color: #94A3B8; }
+
+.magnus-flow { display: flex; align-items: center; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.magnus-flow .step { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #E2E8F0; }
+.magnus-flow .arrow { color: #60A5FA; font-size: 16px; }
+
+.agent-name { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+.badge.exists { background: #D1FAE5; color: #065F46; }
+.badge.partial { background: #FEF3C7; color: #92400E; }
+.badge.near { background: #FEF3C7; color: #92400E; }
+.badge.new { background: #DBEAFE; color: #1E40AF; }
+.badge.platform { background: #F3E8FF; color: #6B21A8; font-size: 9px; }
+.agent-desc { font-size: 13px; color: #4B5563; margin-top: 6px; }
+.agent-meta { display: flex; gap: 20px; margin-top: 10px; font-size: 12px; color: var(--gray); flex-wrap: wrap; }
+.agent-meta span { display: flex; align-items: center; gap: 4px; }
+.agent-meta strong { color: var(--primary); }
+.highlight { margin-top: 8px; font-size: 12px; color: #1E40AF; background: #EFF6FF; padding: 6px 10px; border-radius: 6px; display: inline-block; }
+.process-ref { font-size: 11px; color: var(--gray); margin-top: 6px; font-style: italic; }
+
+/* Platform comparison */
+.platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+@media (max-width: 768px) { .platform-grid { grid-template-columns: 1fr; } }
+.platform-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.platform-card h3 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.platform-card .feature { font-size: 13px; padding: 6px 0; border-bottom: 1px solid #F3F4F6; display: flex; justify-content: space-between; }
+.platform-card .feature:last-child { border-bottom: none; }
+.platform-card .check { color: var(--green); font-weight: 600; }
+.platform-card .cross { color: var(--red); }
+.platform-card .partial-mark { color: var(--orange); }
+
+/* Roadmap */
+.phase-card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); position: relative; overflow: hidden; }
+.phase-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; }
+.phase-card.phase-1::before { background: var(--green); }
+.phase-card.phase-2::before { background: var(--orange); }
+.phase-card.phase-3::before { background: var(--purple); }
+.phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.phase-header h3 { font-size: 16px; }
+.phase-header .timeline { font-size: 12px; color: var(--gray); background: #F3F4F6; padding: 4px 12px; border-radius: 8px; }
+.phase-agents { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.phase-agent-tag { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: #F0F4FF; color: var(--primary); font-weight: 500; }
+.phase-agent-tag.exists { background: #D1FAE5; color: #065F46; }
+
+/* Missing section */
+.missing-card { background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 4px solid var(--red); }
+.missing-card h4 { font-size: 14px; margin-bottom: 4px; }
+.missing-card p { font-size: 13px; color: #4B5563; }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 13px; }
+th { background: var(--primary); color: white; padding: 10px 12px; text-align: left; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 10px 12px; border-bottom: 1px solid #E5E7EB; }
+tr:nth-child(even) { background: #F9FAFB; }
+tr:hover { background: #EFF6FF; }
+
+/* Hosting section */
+.hosting-option { background: white; border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.hosting-option h4 { font-size: 15px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.hosting-option p { font-size: 13px; color: #4B5563; }
+.hosting-option code { background: #F3F4F6; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+.hosting-option .recommended { background: var(--green); color: white; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+.code-block { background: #1E293B; color: #E2E8F0; border-radius: 8px; padding: 16px; font-family: 'SF Mono', Monaco, monospace; font-size: 12px; line-height: 1.6; overflow-x: auto; margin: 12px 0; }
+.code-block .comment { color: #64748B; }
+
+.footer { text-align: center; padding: 32px; color: var(--gray); font-size: 12px; border-top: 1px solid #E5E7EB; margin-top: 32px; }
+
+/* Tabs for filter */
+.filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-btn { padding: 6px 14px; border-radius: 8px; border: 1px solid #E5E7EB; background: white; font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--gray); font-weight: 500; }
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+<div class="header-inner">
+<img src="https://cdn.prod.website-files.com/67c93f979a8781c685d242b9/67e6a93d24de4eafbcb801c3_Dolead%20Logo.svg" alt="Dolead">
+<div>
+<h1>AI Agents Masterplan <span class="version-tag">v2.0 — Updated</span></h1>
+<div class="subtitle">CODIR Discussion Doc · March 2026 · Original by Arthur Saint-Pere, updated with operational context by Alfonso Canovas</div>
+</div>
+</div>
+</div>
+
+<div class="nav">
+<div class="nav-inner">
+<a href="#overview" class="active">Overview</a>
+<a href="#corrections">Corrections</a>
+<a href="#agents">All Agents</a>
+<a href="#platform">Platform Strategy</a>
+<a href="#roadmap">Roadmap</a>
+<a href="#missing">What's Missing</a>
+<a href="#vlad-meeting">Vlad Meeting</a>
+<a href="#hosting">Hosting</a>
+<a href="#summary-table">Summary Table</a>
+</div>
+</div>
+
+<div class="container">
+
+<!-- ====== OVERVIEW ====== -->
+<div class="section-block" id="overview">
+<div class="exec-summary">
+<h2>Executive Summary</h2>
+<p>This document maps <strong>31 AI agents</strong> to the roles they augment across Dolead's operations, orchestrated by <strong>Magnus</strong>, the central router that dispatches requests to the right specialist agent. Each agent is anchored to a specific step of the Proven Process and a concrete daily task from the role guides.</p>
+<p style="color: #1E40AF; font-weight: 500; margin-top: 8px;">v2.0 updates: team listing corrections (13 fixes), 4 existing Cowork agents added, platform convergence strategy (Cowork + Neural Box), 3-phase implementation roadmap, missing roles identified.</p>
+<div class="stats-row">
+<div class="stat-card"><div class="num">31</div><div class="label">Total Agents (1 orchestrator + 30 specialists)</div></div>
+<div class="stat-card"><div class="num">8</div><div class="label">Roles Covered</div></div>
+<div class="stat-card"><div class="num" style="color: var(--green);">10</div><div class="label">Already Exist (Cowork + Neural Box)</div></div>
+<div class="stat-card"><div class="num" style="color: var(--orange);">5</div><div class="label">Partially Built</div></div>
+<div class="stat-card"><div class="num" style="color: var(--accent);">16</div><div class="label">New to Build</div></div>
+</div>
+</div>
+</div>
+
+<!-- ====== CORRECTIONS ====== -->
+<div class="section-block" id="corrections">
+<div class="correction-banner">
+<h3>&#9888;&#65039; Fact-Check: 13 Corrections to Arthur's Original</h3>
+<p style="font-size: 13px; color: #78350F; margin-bottom: 12px;">Cross-referenced against the March 2026 team directory (69 internal employees). Names struck through are incorrect/outdated, corrections in bold.</p>
+
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">TechOps:</span> <span class="old">Karel listed as internal</span> &#8594; <span class="new">Karel van Oordt is external (.ext), NAM-based</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">TechOps:</span> <span class="old">Melissa Fazer listed</span> &#8594; <span class="new">Melissa Fazer left. Add Line Karawani, Jonathan Mendez (Studio EMEA)</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">TechOps:</span> <span class="old">Missing Studio NAM</span> &#8594; <span class="new">Add Felicitas Illana, Maria Fernanda Batlle (Studio NAM)</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">Traffic:</span> <span class="old">Fernando Magana listed</span> &#8594; <span class="new">Not in current directory. Verify status.</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">Traffic:</span> <span class="old">Manu Gaud listed as EMEA TM</span> &#8594; <span class="new">Manu Gaud is EMEA Traffic TL (Team Lead), not just TM</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">PMM:</span> <span class="old">"Sravani, Lakshmisatya" as two people</span> &#8594; <span class="new">This is one person: Sravani Lakshmisatya</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">PMM:</span> <span class="old">Omar Guemra listed as .ext Squad C</span> &#8594; <span class="new">Omar Guemra is internal (PMM EMEA Squad C)</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">PMM:</span> <span class="old">Missing PMM members</span> &#8594; <span class="new">Add Clotilde Sarda (EMEA Squad D), Leire Ajuriaguerra (EMEA)</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">CSM:</span> <span class="old">Missing CSM members</span> &#8594; <span class="new">Add Peter Kelley (NAM), Emile Morel (EMEA). CSM NAM has 5 members, not 4</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">Sales:</span> <span class="old">Missing Milo Martin</span> &#8594; <span class="new">Milo Martin is BDR EMEA, not listed in original</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">Sales:</span> <span class="old">Idriss Mdidech listed as .ext</span> &#8594; <span class="new">Idriss Mdidech is internal (SDR/BDR EMEA)</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">RevOps:</span> <span class="old">"Nicolas Georges (Data)"</span> &#8594; <span class="new">Nicolas Georges is Data Analyst under Thibault, should mention full Data team</span></div>
+<div class="correction-item"><span style="font-weight:600; min-width: 100px;">Agents:</span> <span class="old">"6 already exist"</span> &#8594; <span class="new">10+ already exist when counting Cowork plugins (TechOps Expert, Studio Expert, Personal Assistant, Contract Creator)</span></div>
+</div>
+</div>
+
+<!-- ====== AGENTS ====== -->
+<div class="section-block" id="agents">
+<div class="section-title">&#129302; All Agents by Role</div>
+
+<div class="filter-bar">
+<button class="filter-btn active" onclick="filterAgents('all')">All (31)</button>
+<button class="filter-btn" onclick="filterAgents('exists')">Exists (10)</button>
+<button class="filter-btn" onclick="filterAgents('partial')">Partial (5)</button>
+<button class="filter-btn" onclick="filterAgents('new')">New (16)</button>
+</div>
+
+<!-- MAGNUS -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background: linear-gradient(135deg, #0F2041, #2563EB);">&#129504;</div>
+<div><h2>Orchestrator</h2><div class="role-desc">Single entry point for every Doleader, routes to the right specialist agent</div></div>
+</div>
+
+<div class="agent-card magnus" data-status="new">
+<div class="agent-name">0. Magnus <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Central intelligence layer. Every Doleader talks to Magnus via Slack. Magnus understands who's asking (role, squad, clients), what they need, and routes to the right specialist agent (or chains multiple agents). Handles intent recognition, context injection, multi-agent chaining, result consolidation, and fallback routing.</div>
+<div class="magnus-flow">
+<div class="step">&#128100; Doleader asks in Slack</div>
+<div class="arrow">&#8594;</div>
+<div class="step">&#129504; Magnus routes</div>
+<div class="arrow">&#8594;</div>
+<div class="step">&#9889; Specialist agent(s) execute</div>
+<div class="arrow">&#8594;</div>
+<div class="step">&#9989; Consolidated response</div>
+</div>
+<div class="agent-meta" style="margin-top: 14px;"><span>&#128100; <strong>Serves:</strong> Every Doleader (69 employees)</span><span>&#128205; <strong>Entry:</strong> Slack, Cowork, API</span><span>&#9889; <strong>Chains:</strong> All 30 specialist agents</span></div>
+<div class="highlight">&#127919; Key principle: nobody needs to know which agent to call. Magnus figures it out.</div>
+<div class="process-ref">Architecture: Router Agent pattern on Neural Box · Proven Process: All pillars</div>
+</div>
+</div>
+
+<!-- TECHOPS -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#6366F1;">&#9881;&#65039;</div>
+<div>
+<h2>TechOps</h2>
+<div class="role-desc">Alfonso Canovas (Manager), Nawaf Nour Eddine, Praveen Arivazhagan · Karel van Oordt (.ext, NAM) · Studio EMEA: Diana Quintero, Thomas Dardare, Line Karawani, Jonathan Mendez, Emanuela Ferraro (.ext) · Studio NAM: Felicitas Illana, Maria Fernanda Batlle · WS Devs: Francois Chapuis (.ext), Eleonore Schmitt (.ext)</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">1. TechOps Expert <span class="badge exists">Exists (Cowork Plugin v2.0)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Full pipeline diagnostic agent. Diagnoses why campaigns stop delivering, why leads get refused, and why billable rates drop. Covers the full path from lead capture through distribution, validation, and client delivery. Encodes 50+ resolved ticket patterns. Has browser automation for Admin, Ops, Looker, and campaigns.dolead.com.</div>
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Admin, Ops, Looker, Campaigns</span><span>&#128200; <strong>Patterns:</strong> 50+ resolved tickets</span></div>
+<div class="highlight">&#127919; Already operational. Handles: campaign status, capping, lead validation, refusals, BR drops, NRR analysis, distribution config.</div>
+<div class="process-ref">Cowork plugin: techops-expert v2.0 · Could be ported to Neural Box for Slack access</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">2. Studio Expert <span class="badge exists">Exists (Cowork Plugin v3.0)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Landing page design, CRO optimization, and Studio UI operations. Can both recommend strategy and execute changes directly in Studio. Owns LP compliance checks, A/B test design, variant creation, survey builder, and performance analysis. Includes CRO knowledge base, LP ecosystem docs, and analysis playbooks.</div>
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Studio, Looker 2209</span><span>&#128200; <strong>Knowledge:</strong> CRO frameworks, LIFT/PIE/ICE</span></div>
+<div class="highlight">&#127919; Already operational. Partially overlaps with Arthur's LP-Builder (#3) and LP-ABTest (#14).</div>
+<div class="process-ref">Cowork plugin: studio-expert v3.0 · Sub-skill: lp-compliance-check</div>
+</div>
+
+<div class="agent-card partial" data-status="partial">
+<div class="agent-name">3. WebService-Plug <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Automates new client webservice integration: reads client API docs, configures the endpoint in admin.dolead.com, runs end-to-end test leads, validates delivery, reports results. Claude already does most of this via Alfonso's Cowork setup. Needs to be fully autonomous on Neural Box.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> WS Devs team</span><span>&#128205; <strong>Tool:</strong> admin.dolead.com</span></div>
+<div class="process-ref">Proven Process: Pillar 3 - Client Activation, Web Service</div>
+</div>
+
+<div class="agent-card partial" data-status="partial">
+<div class="agent-name">4. TechOps-Tickets <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Handles incoming tickets from #techops-requests, #webservice, #studio-requests. Triages by priority (P1-P4), auto-resolves simple requests (LP text changes, form field updates, tracking pixel additions), routes complex ones to humans with context. Partially works through Alfonso's Cowork plugins.</div>
+<div class="agent-meta"><span>&#128205; <strong>Channels:</strong> #techops-requests, #webservice, #tech_hotline</span><span>&#9201;&#65039; <strong>Target:</strong> P3/P4 tickets auto-resolved</span></div>
+<div class="process-ref">Proven Process: TechOps ticket flow (P1-P4 priority system)</div>
+</div>
+
+<div class="agent-card partial" data-status="partial">
+<div class="agent-name">5. LP-Builder <span class="badge partial">Partial</span> <span class="badge platform">Cowork + Neural Box</span></div>
+<div class="agent-desc">Creates landing pages from brief/template in Studio. Takes the client brief from the Immersion call, generates LP content (headline, body, form fields, survey questions), builds it in the LP platform, submits for client validation. Studio Expert already handles parts of this, needs to be expanded and made autonomous.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Studio team</span><span>&#128205; <strong>Tool:</strong> studio.dolead.com</span></div>
+<div class="process-ref">Proven Process: Pillar 3 - Client Activation, Launch Process (LP creation Day 3-7)</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">6. LDR-Plug <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Automates Lead Disposition Report setup. Client sends CSV by email (or shared Google Sheet) with Lead ID + CRM statuses. Agent: parses the file, builds the Quality Matrix (mapping client statuses to Dolead categories), configures the automated import in app.dolead.com, validates first import vs raw file, monitors daily data flow.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> TechOps team (Nawaf, Praveen, Karel)</span><span>&#128205; <strong>Channel:</strong> #feedback_loop_project</span></div>
+<div class="highlight">&#127919; Key process: CSM negotiates format, Agent builds matrix, Auto-import daily</div>
+<div class="process-ref">Proven Process: Pillar 3 - Feedback Loop</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">7. LDR-Troubleshooter <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Proactive diagnostics on LDR data quality. Monitors daily and auto-detects 9 problem categories from real CSM escalations: file not received, data corrupted, new CRM status not mapped, automation broken, sheet overwriting data, 2FA/access blocked, calculated fields missing, app vs client data discrepancy, ticket SLA breach.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> CSMs + TechOps (Nawaf, Praveen, Karel, Peter)</span><span>&#128205; <strong>Channels:</strong> #feedback_loop_project, client channels</span></div>
+<div class="highlight">&#127919; Source: Analysis of 60+ real Slack escalation messages (Dec 2025 - Mar 2026)</div>
+<div class="process-ref">Proven Process: Pillar 3 - Feedback Loop, TechOps: LDR/FBL setup</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">8. Tech-Ticket <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Handles ALL internal tickets created by users (and eventually by other agents). Ingests tickets from ClickUp/Slack, classifies by type and urgency, attempts auto-resolution for known patterns, escalates with full context when human needed. Learns from resolution patterns over time.</div>
+<div class="agent-meta"><span>&#128205; <strong>Scope:</strong> All ClickUp tickets, not just TechOps</span><span>&#9201;&#65039; <strong>Target:</strong> 60%+ auto-resolution</span></div>
+<div class="process-ref">Proven Process: All pillars - cross-functional ticket system</div>
+</div>
+</div>
+
+<!-- TRAFFIC -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#F59E0B;">&#128202;</div>
+<div>
+<h2>Traffic Manager (TM)</h2>
+<div class="role-desc">EMEA: Manu Gaud (TL), Dario Diaz (.ext), Fabio Cassano (.ext), Francesco Cifardi (.ext) · NAM (.ext): Maria Fernanda Batlle, Livia Fontana, Gabriela Cortez, Fernando Umbert, Deivid Kich</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">9. TrafficOptimizer-Search <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Daily Google/Bing Ads optimization: bid adjustments, budget pacing, negative keyword management, search term analysis, Quality Score monitoring, campaign anomaly detection. Follows the TM daily routine from the role guide. Proposes changes, executes after PMM approval (or auto for low-risk).</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Search TMs</span><span>&#128205; <strong>Platforms:</strong> Google Ads, Bing Ads</span></div>
+<div class="process-ref">TM Role Guide: Campaign optimization, budget pacing, quality first</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">10. TrafficOptimizer-Social <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Daily Meta + TikTok Ads optimization (unified agent, all social channels): audience management, creative rotation, funnel optimization, pixel monitoring, spend allocation across ad sets. Single agent for all social platforms.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Social TMs (EMEA + NAM)</span><span>&#128205; <strong>Platforms:</strong> Meta Ads, TikTok Ads</span></div>
+<div class="process-ref">TM Role Guide: Platform-specific Meta/TikTok + Test & Learn</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">11. Campaign-Watch <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Real-time monitoring across all campaigns. Detects: CPC spikes, CVR drops, billable rate collapses, budget overspend, tracking failures, ad disapprovals. Alerts the squad Slack channel with root cause diagnosis (NRR Root Cause framework).</div>
+<div class="agent-meta"><span>&#128205; <strong>Augments:</strong> All TMs + PMMs</span><span>&#9201;&#65039; <strong>Target:</strong> Alert within 1h of anomaly</span></div>
+<div class="process-ref">Business Model: NRR Root Cause Analysis (4 causes) - Monitoring Thresholds (BR +/-5%, CVR +/-10%)</div>
+</div>
+</div>
+
+<!-- PMM -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#10B981;">&#128640;</div>
+<div>
+<h2>Performance Marketing Manager (PMM)</h2>
+<div class="role-desc">EMEA: Marc-Henri Guannel (TL), Aziz Aouni, Daria Zasadskaya, Christopher Freeman, Omar Guemra, Clotilde Sarda, Leire Ajuriaguerra · NAM: Emily Beckner (Head), Kara Ortiz, Allyson Vogl, Sravani Lakshmisatya</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">12. Market-Intel <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Pre-launch category analysis. Pulls AdsInsights data (competitor ad spend, creatives, landing pages, volumes), produces market sizing report: estimated volume, CPC benchmarks, competitor landscape, recommended PPL range, NRR projection. Feeds into Deal Desk validation.</div>
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> AdsInsights (#proj-adsinsights-bi)</span><span>&#128100; <strong>Augments:</strong> PMMs + Sales at Deal Desk</span></div>
+<div class="process-ref">Proven Process: Pillar 2 - Competition Monitoring with AdsInsights</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">13. Launch-Pilot <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Manages the end-to-end launch process: creates ClickUp tasks from the standard template, tracks deadlines (KO to Immersion to Strategy to Go Live to 24h Check), pings responsible parties when tasks are late, auto-generates the launch status update for the squad channel.</div>
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> ClickUp, Slack</span><span>&#9201;&#65039; <strong>Target:</strong> KO within 48h, Go Live within 14 days</span></div>
+<div class="process-ref">Proven Process: Pillar 3 - Launch Process (full timeline)</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">14. NRR-Optimizer <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Continuous NRR monitoring per client/category. When NRR drops below target, auto-runs Root Cause analysis (CPC? CVR? Billable Rate? PPL mix?), generates diagnostic report, proposes specific action plan. Escalates to PMM with recommended optimizations.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> All PMMs</span><span>&#128205; <strong>Data:</strong> Looker Squad Daily + Quality KPI dashboards</span></div>
+<div class="process-ref">PMM Role Guide: NRR Management - Root Cause Framework</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">15. Quality-Optimizer <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Proactive lead quality optimization engine. Tests 2FA on a portion of traffic, adjusts PPL pricing per campaign type, adds/removes lead filters, proposes ad creative changes. Operates on a test-then-scale logic, always A/B tests before rolling out.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> All PMMs + TMs</span><span>&#128205; <strong>Levers:</strong> 2FA, pricing, filters, ads, targeting</span></div>
+<div class="highlight">&#127919; Core engine: bridges TrafficOptimizer agents + NRR-Optimizer</div>
+<div class="process-ref">Proven Process: Pillar 4 - Scale & Run (continuous optimization)</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">16. LP-ABTest <span class="badge new">New</span> <span class="badge platform">Cowork + Neural Box</span></div>
+<div class="agent-desc">Tests LP variants systematically: headline alternatives, hero image, CTA placement, social proof blocks, form position, page length. Sets up split traffic, monitors CVR per variant, calls statistical significance, documents winners. Partially covered by Studio Expert today.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> PMMs + TMs</span><span>&#128205; <strong>Tool:</strong> studio.dolead.com</span></div>
+<div class="process-ref">Proven Process: Pillar 3 - Test & Learn</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">17. Form-ABTest <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Optimizes the lead capture form itself. Tests: number of steps, question order, answer options, conditional logic, progress bar, CTA wording. Measures micro-conversions at each step. Critical CVR lever: form step changes can swing CVR 15-25%.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> PMMs + TechOps</span><span>&#128205; <strong>Metrics:</strong> Step-by-step drop-off, overall CVR, billable rate impact</span></div>
+<div class="process-ref">Proven Process: Pillar 4 - Scale & Run</div>
+</div>
+
+<div class="agent-card partial" data-status="partial">
+<div class="agent-name">18. ABTest-Orchestrator <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Manages the overall A/B testing pipeline across all test types (LP, Form, Creative, Bid, Audience). Proposes tests based on performance data, prioritizes by expected impact, assigns to the right sub-agent, monitors statistical significance, calls winners, documents learnings. Ensures at least 1 test/client/month.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> PMMs + TMs + Studio</span><span>&#128205; <strong>Coordinates:</strong> LP-ABTest, Form-ABTest, TrafficOptimizers</span></div>
+<div class="process-ref">Proven Process: Pillar 3 - Test & Learn</div>
+</div>
+</div>
+
+<!-- CSM -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#EF4444;">&#129309;</div>
+<div>
+<h2>Customer Success Manager (CSM / AM)</h2>
+<div class="role-desc">EMEA: Nicolas Gosset (A), Maria Gonzalez (B), Brezo Sanchez-Ocana (C), Callum Downs (D), Emile Morel · NAM: Emily Kingston, Cayden Orred, Sofia Vorontsova, James Collins, Peter Kelley</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">19. BR-Prep <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Auto-generates Business Review slides following the mandatory flow: Meet the team, What we've been working on, Results (Billable leads, Sales & Quality, Traffic sources), Next Steps. Pulls data from Looker, screenshots dashboards, assembles in Google Slides template.</div>
+<div class="agent-meta"><span>&#128205; <strong>Cadence:</strong> Monthly (MBR) + Quarterly (QBR)</span><span>&#9201;&#65039; <strong>Saves:</strong> 3-5h per BR per CSM</span></div>
+<div class="process-ref">CSM Role Guide: BR Slides - Mandatory Flow (6 steps)</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">20. Quality-Monitor <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Daily automated quality check per client: opens Quality Dashboard in Looker, checks North Star Metric trends, monitors % leads with feedback, flags deterioration. Posts a daily quality digest in each client Slack channel.</div>
+<div class="agent-meta"><span>&#128205; <strong>Data:</strong> Looker Quality KPI Dashboards (1525, 1556)</span><span>&#128100; <strong>Augments:</strong> All CSMs</span></div>
+<div class="process-ref">CSM Role Guide: Daily routine (check Quality Dashboard)</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">21. LDR-Monitor <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Monitors Lead Disposition Report data flow daily. Checks data freshness, accuracy, feedback %, Quality Matrix consistency. Alerts CSM same-day if LDR breaks. Auto-generates LDR status update for client channel.</div>
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> app.dolead.com, Looker</span><span>&#128100; <strong>Augments:</strong> All CSMs</span></div>
+<div class="process-ref">CSM Role Guide: LDR section - Daily monitoring</div>
+</div>
+</div>
+
+<!-- SALES -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#8B5CF6;">&#128188;</div>
+<div>
+<h2>Sales (AE / BDR)</h2>
+<div class="role-desc">EMEA: Hugo Travaille (Head), Adrian Angulo · NAM: Matt Segien (Head), Jon Allard, Gregory Strait, Sebastian Guevara · BDRs: Alvaro Vivas, Fabiola De Abreu, Massimo Gazzola, Jean Mosquera, Milo Martin, Idriss Mdidech</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">22. DealDesk <span class="badge exists">Exists (Neural Box)</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">When a deal reaches the Deal Desk stage in HubSpot, agent auto-runs Deal Scorecard calculation, pulls historical performance for similar categories/countries, validates PPL range vs market data (AdsInsights), flags risks. Posts structured validation brief in #deal-desk-new-clients.</div>
+<div class="agent-meta"><span>&#128205; <strong>Skill:</strong> sales /deal-score</span><span>&#128100; <strong>Augments:</strong> AEs + Deal Desk owners</span></div>
+<div class="process-ref">Proven Process: Pillar 2 - Deal Desk + Deal Scorecard</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">23. CallPrep <span class="badge exists">Exists (Neural Box)</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Pre-call: researches prospect (LinkedIn, website, AdsInsights competitive data), prepares discovery brief. Post-call: summarizes Fathom recording into structured notes, logs to HubSpot. Proposes deal stage progression.</div>
+<div class="agent-meta"><span>&#128205; <strong>Skill:</strong> sales /call-summary</span><span>&#128295; <strong>Tool:</strong> HubSpot, Fathom</span></div>
+<div class="process-ref">AE Role Guide: Discovery & Solution Design</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">24. Outbound-Prospector <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Automated prospecting: identifies target accounts via LinkedIn Sales Navigator + AdsInsights, enriches contacts, drafts personalized outreach sequences, manages follow-ups. Feeds Discovery Booked pipeline stage in HubSpot.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> BDR team + AEs</span><span>&#128295; <strong>Tools:</strong> LinkedIn Sales Navigator, HubSpot, AdsInsights</span></div>
+<div class="process-ref">AE Role Guide: Daily routine - Prospecting block</div>
+</div>
+</div>
+
+<!-- REVOPS -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#06B6D4;">&#128200;</div>
+<div>
+<h2>RevOps / Sales Ops</h2>
+<div class="role-desc">EMEA: Thibault Felix de Valois (Sales Ops, under Esther Tabet), Nicolas Georges (Data) · NAM: Theo Causse (RevOps, under Hadrien)</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">25. Forecast <span class="badge exists">Exists (Neural Box)</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Aggregates quantitative data (Looker GR/NR/NRR actuals + pipeline) with qualitative context to produce a structured forecast. Auto-updates weekly. Flags divergence between landing and confirmed orders.</div>
+<div class="agent-meta"><span>&#128205; <strong>Skill:</strong> sales /forecast</span><span>&#128200; <strong>Data:</strong> Looker #2072 + forecast-context.md</span></div>
+<div class="process-ref">Proven Process: Pillar 4 - Forecasting</div>
+</div>
+
+<div class="agent-card new" data-status="new">
+<div class="agent-name">26. Dashboard-Builder <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Auto-generates and iterates Looker dashboards from natural language specs. Takes a request like "Show me Online Edu ES quality KPIs with maturity curve" and produces the LookML/dashboard config. Handles filter logic, date ranges, area breakdowns.</div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Thibault, Theo, Nicolas Georges</span><span>&#128205; <strong>Tool:</strong> Looker</span></div>
+<div class="process-ref">RevOps Role Guide: Dashboard Management - "Ship V1, iterate"</div>
+</div>
+</div>
+
+<!-- CROSS-FUNCTIONAL -->
+<div class="role-section">
+<div class="role-header">
+<div class="role-icon" style="background:#0F2041;">&#127749;</div>
+<div><h2>Cross-Functional (All Roles)</h2><div class="role-desc">Every Doleader</div></div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">27. Morning-Brief <span class="badge exists">Exists (Neural Box + Cowork)</span> <span class="badge platform">Both</span></div>
+<div class="agent-desc">Personalized daily briefing. Scans relevant Slack channels, Gmail, Calendar, Looker dashboards. Delivers: urgent items, performance snapshot, what happened in last 24h, today's calendar, priorities. Arthur's version exists on Neural Box, Alfonso's exists on Cowork. Needs to be generalized per role.</div>
+<div class="agent-meta"><span>&#128205; <strong>Exists on:</strong> Neural Box (Arthur) + Cowork (Alfonso)</span><span>&#9201;&#65039; <strong>Target:</strong> Every Doleader, 8AM local time</span></div>
+<div class="highlight">&#127919; Scale from 2 users to all 69 employees, specialized by role</div>
+<div class="process-ref">Proven Process: Pillar 1 - A-Player's Toolkit (daily/weekly routines)</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">28. Personal Assistant <span class="badge exists">Exists (Cowork Plugin)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Alfonso's personal work assistant. Handles communication, scheduling, meeting prep, team lookups, Slack/email triage, drafting messages, weekly planning, and general work orchestration. Knows teams (Studio, TechOps), priorities, communication style, and workflows. Template for role-specific assistants.</div>
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Slack, Gmail, Calendar, ClickUp, Notion</span></div>
+<div class="highlight">&#127919; Template for per-role assistants. Each PMM/CSM/AE could get their own version.</div>
+<div class="process-ref">Cowork plugin: personal-assistant</div>
+</div>
+
+<div class="agent-card exists" data-status="exists">
+<div class="agent-name">29. Contract Creator <span class="badge exists">Exists (Cowork Plugin)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Automates creation, renewal, and eSignature of Dolead EMEA freelance contracts in Google Docs. Handles the full contract lifecycle: duplicate a reference contract, adapt fields, send for eSignature, track signing status.</div>
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Google Docs, eSignature</span></div>
+<div class="process-ref">Cowork plugin: freelance-contract-creator</div>
+</div>
+
+<div class="agent-card partial" data-status="partial">
+<div class="agent-name">30. ClickUp-Ops <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Autonomous ClickUp operator for all roles. Creates tasks from Slack requests or other agents' outputs, updates status/assignees/due dates, posts comments, generates launch task templates, monitors overdue tasks. Acts as the "hands" for all process-tracking agents. ClickUp MCP connector already exists on both platforms.</div>
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> ClickUp API (MCP connector exists)</span><span>&#128100; <strong>Used by:</strong> All roles, all agents</span></div>
+<div class="highlight">&#127919; Backbone infrastructure: enables all process-tracking agents to write to ClickUp autonomously</div>
+<div class="process-ref">Proven Process: All pillars - ClickUp is the central task system</div>
+</div>
+</div>
+
+</div><!-- end #agents -->
+
+<!-- ====== PLATFORM STRATEGY ====== -->
+<div class="section-block" id="platform">
+<div class="section-title">&#127959;&#65039; Platform Strategy: Cowork + Neural Box Convergence</div>
+
+<p style="font-size: 14px; color: #374151; margin-bottom: 20px;">Dolead has two AI platforms that need to converge, not compete. The recommendation: <strong>Neural Box becomes the backbone</strong> (Slack-accessible for all 69 employees), <strong>Cowork stays as the power-user layer</strong> for anyone who needs deep browser automation.</p>
+
+<div class="platform-grid">
+<div class="platform-card" style="border-top: 3px solid var(--accent);">
+<h3>&#128421;&#65039; Neural Box (Vlad's Server)</h3>
+<div class="feature"><span>Slack integration</span><span class="check">&#10003; Native</span></div>
+<div class="feature"><span>Multi-user access</span><span class="check">&#10003; All 69 employees</span></div>
+<div class="feature"><span>Scheduled tasks</span><span class="check">&#10003; Cron-based</span></div>
+<div class="feature"><span>API endpoints</span><span class="check">&#10003; FastAPI</span></div>
+<div class="feature"><span>Browser automation</span><span class="partial-mark">~ Headless only</span></div>
+<div class="feature"><span>MCP tools</span><span class="check">&#10003; 112 tools</span></div>
+<div class="feature"><span>User sees actions live</span><span class="cross">&#10007;</span></div>
+<div class="feature"><span>Desktop app integration</span><span class="cross">&#10007;</span></div>
+</div>
+
+<div class="platform-card" style="border-top: 3px solid var(--green);">
+<h3>&#128187; Cowork (Claude Desktop)</h3>
+<div class="feature"><span>Live browser control</span><span class="check">&#10003; Full Chrome</span></div>
+<div class="feature"><span>User sees everything</span><span class="check">&#10003; Real-time</span></div>
+<div class="feature"><span>File creation (DOCX, PPTX...)</span><span class="check">&#10003; Native</span></div>
+<div class="feature"><span>MCP connectors</span><span class="check">&#10003; Extensible</span></div>
+<div class="feature"><span>Plugin ecosystem</span><span class="check">&#10003; Growing</span></div>
+<div class="feature"><span>Multi-user Slack access</span><span class="cross">&#10007; Single user</span></div>
+<div class="feature"><span>Background tasks</span><span class="cross">&#10007; Needs desktop open</span></div>
+<div class="feature"><span>API access</span><span class="cross">&#10007;</span></div>
+</div>
+</div>
+
+<div style="background: white; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-top: 16px; border-left: 4px solid var(--accent);">
+<h4 style="font-size: 15px; margin-bottom: 8px;">Recommended Architecture</h4>
+<p style="font-size: 13px; color: #4B5563;"><strong>Neural Box = V1 backbone.</strong> All 31 agents run here. Every Doleader accesses via Slack (@dolead-ai). Magnus routes requests to the right skill. Scheduled tasks (morning briefs, campaign monitoring) run automatically. This covers 90% of use cases.</p>
+<p style="font-size: 13px; color: #4B5563; margin-top: 8px;"><strong>Cowork = Power-user layer.</strong> For people who need live browser control, complex document creation, or deep interactive debugging (Alfonso, Arthur, and whoever needs it). Cowork plugins can call Neural Box APIs for data, and Neural Box skills can be tested/prototyped in Cowork first.</p>
+</div>
+</div>
+
+<!-- ====== ROADMAP ====== -->
+<div class="section-block" id="roadmap">
+<div class="section-title">&#128197; Implementation Roadmap</div>
+
+<div class="phase-card phase-1">
+<div class="phase-header">
+<h3>&#127937; Phase 1: Foundation (Weeks 1-4)</h3>
+<div class="timeline">March - April 2026</div>
+</div>
+<p style="font-size: 13px; color: #4B5563; margin-bottom: 12px;">Get Magnus running + port existing agents to Neural Box. Focus on what already works and making it accessible to everyone via Slack.</p>
+<div class="phase-agents">
+<span class="phase-agent-tag exists">Magnus (router)</span>
+<span class="phase-agent-tag exists">Morning-Brief (generalize)</span>
+<span class="phase-agent-tag exists">TechOps Expert (port)</span>
+<span class="phase-agent-tag exists">DealDesk (already there)</span>
+<span class="phase-agent-tag exists">CallPrep (already there)</span>
+<span class="phase-agent-tag exists">Forecast (already there)</span>
+<span class="phase-agent-tag exists">ClickUp-Ops (foundation)</span>
+<span class="phase-agent-tag exists">TechOps-Tickets (Slack-native)</span>
+</div>
+<p style="font-size: 12px; color: var(--gray); margin-top: 10px;"><strong>Milestone:</strong> Every Doleader can type @dolead-ai in Slack and get routed to an agent. 8 agents live.</p>
+</div>
+
+<div class="phase-card phase-2">
+<div class="phase-header">
+<h3>&#128296; Phase 2: Core Agents (Weeks 5-12)</h3>
+<div class="timeline">April - June 2026</div>
+</div>
+<p style="font-size: 13px; color: #4B5563; margin-bottom: 12px;">Build the high-impact agents that save the most time. Prioritize by hours saved per week across the team.</p>
+<div class="phase-agents">
+<span class="phase-agent-tag">BR-Prep (3-5h/BR saved)</span>
+<span class="phase-agent-tag">Campaign-Watch (real-time alerts)</span>
+<span class="phase-agent-tag">NRR-Optimizer (revenue impact)</span>
+<span class="phase-agent-tag">Quality-Monitor (daily digest)</span>
+<span class="phase-agent-tag">LDR-Plug (automation)</span>
+<span class="phase-agent-tag">LDR-Troubleshooter (proactive)</span>
+<span class="phase-agent-tag">LDR-Monitor (CSM daily)</span>
+<span class="phase-agent-tag">Market-Intel (pre-launch)</span>
+<span class="phase-agent-tag">Launch-Pilot (process)</span>
+<span class="phase-agent-tag">LP-Builder (expand Studio Expert)</span>
+<span class="phase-agent-tag">WebService-Plug (autonomize)</span>
+<span class="phase-agent-tag">Tech-Ticket (cross-functional)</span>
+</div>
+<p style="font-size: 12px; color: var(--gray); margin-top: 10px;"><strong>Milestone:</strong> 20 agents live. Every PMM, CSM, and TechOps member uses AI daily. Estimated 40+ hours/week saved across the team.</p>
+</div>
+
+<div class="phase-card phase-3">
+<div class="phase-header">
+<h3>&#128640; Phase 3: Advanced & Autonomous (Weeks 13-20)</h3>
+<div class="timeline">June - August 2026</div>
+</div>
+<p style="font-size: 13px; color: #4B5563; margin-bottom: 12px;">Build the hardest agents: the ones that need ad platform APIs, predictive models, or multi-step autonomous workflows.</p>
+<div class="phase-agents">
+<span class="phase-agent-tag">TrafficOptimizer-Search</span>
+<span class="phase-agent-tag">TrafficOptimizer-Social</span>
+<span class="phase-agent-tag">Quality-Optimizer</span>
+<span class="phase-agent-tag">LP-ABTest</span>
+<span class="phase-agent-tag">Form-ABTest</span>
+<span class="phase-agent-tag">ABTest-Orchestrator</span>
+<span class="phase-agent-tag">Dashboard-Builder</span>
+<span class="phase-agent-tag">Outbound-Prospector</span>
+</div>
+<p style="font-size: 12px; color: var(--gray); margin-top: 10px;"><strong>Milestone:</strong> All 31 agents live. Fully autonomous optimization loop (Campaign-Watch detects, NRR-Optimizer diagnoses, Quality-Optimizer executes). Dolead operates with AI-augmented workflows across every role.</p>
+</div>
+</div>
+
+<!-- ====== WHAT'S MISSING ====== -->
+<div class="section-block" id="missing">
+<div class="section-title">&#9888;&#65039; What's Missing from Arthur's Original</div>
+
+<div class="missing-card">
+<h4>Growth / Creative Team (7+ people, no agents)</h4>
+<p>Clemence Rouyer (Head of Growth), Dani Sanchez, Laura Pesca, Eliza Petikyan, Marie Ikorichene, Pierre Gillot, and freelancers. They handle ad creatives, video production, copy for ads and LPs. Zero agents proposed for them. Potential: Creative-Generator (ad copy/visual briefs from performance data), Creative-Analyzer (which creatives drive best BR/NRR).</p>
+</div>
+
+<div class="missing-card">
+<h4>HR / People Team</h4>
+<p>Nathalie Leclercq (People & Culture Director), Natacha Douay, Anne Vigoureux, Dieynaba Ba. No agents proposed. Potential: Onboarding-Agent (new hire checklist, tool provisioning, training schedule), Pulse-Agent (engagement surveys, 1:1 prep).</p>
+</div>
+
+<div class="missing-card">
+<h4>Finance Team</h4>
+<p>Esther Tabet (CFO), Sandrine Haouzi, Alexis Ferreira, Hanane Amejjoud, Virginie Lichtfouse. No agents proposed. Potential: Invoice-Agent (automated billing from Dolead data), Budget-Tracker (spend vs forecast alerts).</p>
+</div>
+
+<div class="missing-card">
+<h4>Recruitment</h4>
+<p>Amira Yahia-Berrouiguet (Talent Acquisition). No agents proposed. Potential: Sourcing-Agent (candidate enrichment, outreach sequences), Interview-Prep (structured interview guides from job spec).</p>
+</div>
+
+<div class="missing-card">
+<h4>Infrastructure Gaps</h4>
+<p>No centralized knowledge base agent (Notion/Wiki search across all company docs). No security/permissions layer defined for Magnus (who can access what data). No analytics on agent usage (which agents get used, which don't, ROI tracking). No training/onboarding plan for getting 69 employees to actually use these agents.</p>
+</div>
+</div>
+
+<!-- ====== VLAD MEETING ====== -->
+<div class="section-block" id="vlad-meeting">
+<div class="section-title">&#128221; Vlad Meeting Agenda (10 Items)</div>
+<p style="font-size: 14px; color: #374151; margin-bottom: 16px;">Before building, Alfonso and Vlad need to align on these 10 topics. This is the agenda for the convergence meeting.</p>
+
+<div style="display: grid; gap: 10px;">
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">1. Magnus Architecture</div>
+<div style="font-size: 13px; color: #4B5563;">How does Magnus route requests? Static mapping (keyword to skill) or LLM-based intent recognition? Where does it live (Neural Box)? How does it handle multi-agent chaining?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">2. Skill Format Convergence</div>
+<div style="font-size: 13px; color: #4B5563;">Can Neural Box skills and Cowork plugin SKILL.md files share the same format? Should we standardize on one structure so agents are portable between platforms?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">3. Cowork-to-Neural-Box Porting</div>
+<div style="font-size: 13px; color: #4B5563;">How to port TechOps Expert, Studio Expert knowledge to Neural Box? The knowledge bases (50+ patterns, CRO frameworks) are the real asset. Browser automation needs Playwright adaptation.</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">4. User Identity & Permissions</div>
+<div style="font-size: 13px; color: #4B5563;">When a CSM asks Magnus something, how does Magnus know their squad, clients, permissions? Does Neural Box have a user profile system? How do we map Slack users to Dolead roles?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">5. Shared Tool Layer</div>
+<div style="font-size: 13px; color: #4B5563;">Both platforms use MCP. Can we share the tool definitions (ClickUp, Slack, Looker, Admin, Ops)? Neural Box has 112 tools, some overlap with Cowork connectors.</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">6. Ad Platform APIs</div>
+<div style="font-size: 13px; color: #4B5563;">TrafficOptimizer agents need Google Ads, Meta Ads, TikTok Ads API access. Does Neural Box already have these? What auth flow? Rate limits? Read-only first vs read-write?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">7. Monitoring & Alerting Infrastructure</div>
+<div style="font-size: 13px; color: #4B5563;">Campaign-Watch, Quality-Monitor, LDR-Troubleshooter all need to run on schedules and push alerts to Slack. Does Neural Box's scheduler support this pattern? What's the latency?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">8. Knowledge Base Architecture</div>
+<div style="font-size: 13px; color: #4B5563;">Where do agent knowledge bases live? Cowork uses reference .md files that grow over time. Neural Box uses skills repo. How do we keep knowledge in sync across platforms?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">9. Cost Model</div>
+<div style="font-size: 13px; color: #4B5563;">69 users x multiple daily interactions = significant API costs. What's Neural Box's current cost per interaction? Do we need usage tiers? Rate limiting? Model selection per agent (Haiku for simple, Opus for complex)?</div>
+</div>
+<div class="agent-card" style="border-left-color: var(--accent); padding: 14px 20px;">
+<div style="font-size: 14px; font-weight: 600;">10. Phase 1 Scope Agreement</div>
+<div style="font-size: 13px; color: #4B5563;">Agree on which 8 agents go live first, who owns building each one (Alfonso vs Vlad vs shared), and the timeline. Target: 4 weeks to first Slack-accessible agents.</div>
+</div>
+</div>
+</div>
+
+<!-- ====== HOSTING ====== -->
+<div class="section-block" id="hosting">
+<div class="section-title">&#127760; Hosting This Page (Free, Permanent)</div>
+
+<div class="hosting-option" style="border-left: 4px solid var(--green);">
+<h4>GitHub Pages <span class="recommended">Recommended</span></h4>
+<p>Free, permanent, custom domain support, version history. Just push this HTML file to a GitHub repo and enable Pages.</p>
+<div class="code-block">
+<span class="comment"># 1. Create a new repo on GitHub (e.g., dolead-ai-masterplan)</span>
+<br><span class="comment"># 2. Push this file as index.html</span>
+<br>git init
+<br>git add index.html
+<br>git commit -m "Dolead AI Agents Masterplan v2.0"
+<br>git remote add origin https://github.com/YOUR_ORG/dolead-ai-masterplan.git
+<br>git push -u origin main
+<br>
+<br><span class="comment"># 3. Go to repo Settings > Pages > Source: main branch > Save</span>
+<br><span class="comment"># URL: https://YOUR_ORG.github.io/dolead-ai-masterplan/</span>
+</div>
+</div>
+
+<div class="hosting-option">
+<h4>Netlify (Drag & Drop)</h4>
+<p>Go to <code>app.netlify.com/drop</code>, drag this HTML file. Instant URL. Free tier, permanent, custom domain possible.</p>
+</div>
+
+<div class="hosting-option">
+<h4>Cloudflare Pages</h4>
+<p>Connect to GitHub repo or upload directly. Free tier with unlimited bandwidth. Custom domain included.</p>
+</div>
+
+<div class="hosting-option">
+<h4>Vercel</h4>
+<p>Import from GitHub. Free for personal/hobby projects. Automatic deploys on push.</p>
+</div>
+</div>
+
+<!-- ====== SUMMARY TABLE ====== -->
+<div class="section-block" id="summary-table">
+<h2 style="font-size: 18px; margin-bottom: 16px;">Summary: All 31 Agents</h2>
+
+<table>
+<thead>
+<tr><th>#</th><th>Agent</th><th>Role</th><th>Status</th><th>Platform</th><th>Key Impact</th></tr>
+</thead>
+<tbody>
+<tr style="background: #0F2041; color: white;"><td>0</td><td><strong>Magnus</strong></td><td>Orchestrator</td><td>&#128309; New</td><td>Neural Box</td><td>Central router for all 69 Doleaders</td></tr>
+<tr><td>1</td><td>TechOps Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>Full pipeline diagnostics (50+ patterns)</td></tr>
+<tr><td>2</td><td>Studio Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>LP design, CRO, compliance</td></tr>
+<tr><td>3</td><td>WebService-Plug</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous WS integration</td></tr>
+<tr><td>4</td><td>TechOps-Tickets</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Auto-resolve P3/P4 tickets</td></tr>
+<tr><td>5</td><td>LP-Builder</td><td>TechOps</td><td>&#128992; Partial</td><td>Both</td><td>LP creation from brief</td></tr>
+<tr><td>6</td><td>LDR-Plug</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Automated LDR setup & import</td></tr>
+<tr><td>7</td><td>LDR-Troubleshooter</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Proactive LDR diagnostics (9 types)</td></tr>
+<tr><td>8</td><td>Tech-Ticket</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Cross-functional ticket auto-resolution</td></tr>
+<tr><td>9</td><td>TrafficOptimizer-Search</td><td>Traffic</td><td>&#128309; New</td><td>Neural Box</td><td>Daily Google/Bing optimization</td></tr>
+<tr><td>10</td><td>TrafficOptimizer-Social</td><td>Traffic</td><td>&#128309; New</td><td>Neural Box</td><td>Daily Meta + TikTok optimization</td></tr>
+<tr><td>11</td><td>Campaign-Watch</td><td>Traffic</td><td>&#128309; New</td><td>Neural Box</td><td>Real-time anomaly detection</td></tr>
+<tr><td>12</td><td>Market-Intel</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>Pre-launch category analysis</td></tr>
+<tr><td>13</td><td>Launch-Pilot</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>End-to-end launch process</td></tr>
+<tr><td>14</td><td>NRR-Optimizer</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>NRR root cause + action plans</td></tr>
+<tr><td>15</td><td>Quality-Optimizer</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>Optimization lever execution</td></tr>
+<tr><td>16</td><td>LP-ABTest</td><td>PMM</td><td>&#128309; New</td><td>Both</td><td>LP layout/content A/B testing</td></tr>
+<tr><td>17</td><td>Form-ABTest</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>Form step/question optimization</td></tr>
+<tr><td>18</td><td>ABTest-Orchestrator</td><td>PMM</td><td>&#128992; Partial</td><td>Neural Box</td><td>Coordinates all A/B test sub-agents</td></tr>
+<tr><td>19</td><td>BR-Prep</td><td>CSM</td><td>&#128309; New</td><td>Neural Box</td><td>Auto-generate BR slides (saves 3-5h)</td></tr>
+<tr><td>20</td><td>Quality-Monitor</td><td>CSM</td><td>&#128309; New</td><td>Neural Box</td><td>Daily quality digest per client</td></tr>
+<tr><td>21</td><td>LDR-Monitor</td><td>CSM</td><td>&#128309; New</td><td>Neural Box</td><td>Daily LDR health check</td></tr>
+<tr><td>22</td><td>DealDesk</td><td>Sales</td><td>&#128994; Exists</td><td>Neural Box</td><td>Auto deal scoring + validation</td></tr>
+<tr><td>23</td><td>CallPrep</td><td>Sales</td><td>&#128994; Exists</td><td>Neural Box</td><td>Pre/post call briefs + HubSpot</td></tr>
+<tr><td>24</td><td>Outbound-Prospector</td><td>Sales</td><td>&#128309; New</td><td>Neural Box</td><td>Automated prospecting + outreach</td></tr>
+<tr><td>25</td><td>Forecast</td><td>RevOps</td><td>&#128994; Exists</td><td>Neural Box</td><td>Quant + qualitative forecast</td></tr>
+<tr><td>26</td><td>Dashboard-Builder</td><td>RevOps</td><td>&#128309; New</td><td>Neural Box</td><td>Looker from natural language</td></tr>
+<tr><td>27</td><td>Morning-Brief</td><td>Cross</td><td>&#128994; Exists</td><td>Both</td><td>Personalized daily briefing</td></tr>
+<tr><td>28</td><td>Personal Assistant</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Work orchestration (template for all)</td></tr>
+<tr><td>29</td><td>Contract Creator</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Freelance contract automation</td></tr>
+<tr><td>30</td><td>ClickUp-Ops</td><td>Cross</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous ClickUp for all agents</td></tr>
+</tbody>
+</table>
+</div>
+
+</div><!-- end container -->
+
+<div class="footer">
+Dolead AI Agents Masterplan v2.0 (31 agents) · March 2026 · Confidential<br>
+Original: Arthur Saint-Pere · Updated: Alfonso Canovas with operational context from Cowork plugins, team directory, and client database<br>
+Sources: Proven Process, Role Guides, Slack analysis, Cowork plugin knowledge bases, Neural Box architecture docs
+</div>
+
+<script>
+// Sticky nav active state
+const navLinks = document.querySelectorAll('.nav a');
+const sections = document.querySelectorAll('.section-block');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 80;
+    if (window.scrollY >= top) current = section.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+
+// Filter agents
+function filterAgents(status) {
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.agent-card[data-status]').forEach(card => {
+    if (status === 'all') {
+      card.style.display = '';
+    } else {
+      card.style.display = card.dataset.status === status ? '' : 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
