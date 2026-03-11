@@ -104,29 +104,29 @@
 <div class="agent-grid">
 <div class="agent-card exists" data-status="exists" data-team="TechOps" data-platform="Cowork">
 <div class="agent-name">1. TechOps Expert <span class="badge exists">Exists (Cowork Plugin v2.0)</span> <span class="badge platform">Cowork</span></div>
-<div class="agent-desc">Full pipeline diagnostic agent. Diagnoses why campaigns stop delivering, why leads get refused, and why billable rates drop. Covers the full path from lead capture through distribution, validation, and client delivery. Encodes 50+ resolved ticket patterns.</div>
+<div class="agent-desc">Full pipeline diagnostic agent with 50+ resolved ticket patterns across 7 categories. Diagnoses campaign delivery failures, refusal spikes (D_Filters, D_Phone, D_Capping, D_Duplicate, D_Schedule), billable rate drops, NRR issues, and distribution problems. Traces the entire lead funnel from ad click through survey, capture, validation, distribution, and billing.</div>
 <div class="agent-expand">
 <div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Admin, Ops, Looker, Campaigns</span><span>&#128200; <strong>Patterns:</strong> 50+ resolved tickets</span></div>
-<div class="agent-highlight">&#127919; Already operational. Handles: campaign status, capping, lead validation, refusals, BR drops, NRR analysis, distribution config.</div>
-<div class="agent-process-ref">Cowork plugin: techops-expert v2.0 &middot; Could be ported to Neural Box for Slack access</div>
+<div class="agent-highlight">&#127919; Operational since Jan 2026. 5 diagnostic playbooks: Campaign Diagnosis, BR Drop Investigation, NRR Root Cause, Lead Delivery Failure, Reinjection Workflow. Knows campaign status mechanics (Status User vs Status Capping), link types (automatic 14-day expiry vs hard/permanent), Smart Distribution (pacing, buffering, soft-capping), and the full WS integration lifecycle.</div>
+<div class="agent-process-ref">Cowork plugin: techops-expert v2.0 &middot; Next: port knowledge base to Neural Box for Slack-native access</div>
 </div>
 </div>
 
 <div class="agent-card exists" data-status="exists" data-team="TechOps" data-platform="Cowork">
 <div class="agent-name">2. Studio Expert <span class="badge exists">Exists (Cowork Plugin v3.0)</span> <span class="badge platform">Cowork</span></div>
-<div class="agent-desc">Landing page design, CRO optimization, and Studio UI operations. Can both recommend strategy and execute changes directly in Studio. Owns LP compliance checks, A/B test design, variant creation, survey builder, and performance analysis.</div>
+<div class="agent-desc">Landing page design, CRO optimization, and direct Studio UI execution. 11 core capabilities: LP performance analysis, A/B test strategy (LIFT/PIE/ICE frameworks), variant creation, survey optimization, LP compliance auditing (EMEA advertising rules), Studio ticket handling, mobile optimization, and conversion diagnostics. Can both recommend and execute.</div>
 <div class="agent-expand">
 <div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Studio, Looker 2209</span><span>&#128200; <strong>Knowledge:</strong> CRO frameworks, LIFT/PIE/ICE</span></div>
-<div class="agent-highlight">&#127919; Already operational. Partially overlaps with Arthur's LP-Builder (#3) and LP-ABTest (#14).</div>
-<div class="agent-process-ref">Cowork plugin: studio-expert v3.0 &middot; Sub-skill: lp-compliance-check</div>
+<div class="agent-highlight">&#127919; Operational since Dec 2025. Knows the full Dolead LP stack: Studio builder, Gatsby rendering, Survey Builder with conditional logic, Bandit A/B algorithm (Thompson Sampling), Looker 2209 for CVR tracking. Distinguishes generic vs branded pages, handles 2FA toggle logic, and scores test ideas. Includes dedicated LP compliance auditor (checks pages against EMEA creative rules).</div>
+<div class="agent-process-ref">Cowork plugin: studio-expert v3.0 &middot; Sub-skills: lp-compliance-check, studio-expert</div>
 </div>
 </div>
 
 <div class="agent-card partial" data-status="partial" data-team="TechOps" data-platform="Neural Box">
 <div class="agent-name">3. WebService-Plug <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
-<div class="agent-desc">Automates new client webservice integration: reads client API docs, configures the endpoint in admin.dolead.com, runs end-to-end test leads, validates delivery, reports results.</div>
+<div class="agent-desc">Automates new client webservice integration: reads client API docs, configures the endpoint in admin.dolead.com, runs end-to-end test leads, validates delivery, reports results. Working prototype exists on Nawaf Nour Eddine's local machine — ready for Neural Box deployment.</div>
 <div class="agent-expand">
-<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> WS Devs team</span><span>&#128205; <strong>Tool:</strong> admin.dolead.com</span></div>
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> WS Devs team (Francois, Eleonore)</span><span>&#128205; <strong>Tool:</strong> admin.dolead.com</span><span>&#9889; <strong>Status:</strong> Working locally (Nawaf), needs Neural Box deploy</span></div>
 <div class="agent-process-ref">Proven Process: Pillar 3 - Client Activation, Web Service</div>
 </div>
 </div>
@@ -418,7 +418,7 @@
 <div class="agent-grid">
 <div class="agent-card exists" data-status="exists" data-team="Cross" data-platform="Both">
 <div class="agent-name">27. Morning-Brief <span class="badge exists">Exists (Neural Box + Cowork)</span> <span class="badge platform">Both</span></div>
-<div class="agent-desc">Personalized daily briefing. Scans relevant Slack channels, Gmail, Calendar, Looker dashboards. Delivers: urgent items, performance snapshot, what happened in last 24h, today's calendar, priorities.</div>
+<div class="agent-desc">Personalized daily briefing. Scans Slack (saved items, DMs, key channels), Gmail, Calendar, and Looker dashboards. Delivers: urgent items ranked by priority (deadlines > people-blocking > strategic), performance snapshot, what happened in last 24h, today's calendar with prep notes, and actionable priorities.</div>
 <div class="agent-expand">
 <div class="agent-meta"><span>&#128205; <strong>Exists on:</strong> Neural Box (Arthur) + Cowork (Alfonso)</span><span>&#9201;&#65039; <strong>Target:</strong> Every Doleader, 8AM local time</span></div>
 <div class="agent-highlight">&#127919; Scale from 2 users to all 69 employees, specialized by role</div>
@@ -428,19 +428,19 @@
 
 <div class="agent-card exists" data-status="exists" data-team="Cross" data-platform="Cowork">
 <div class="agent-name">28. Personal Assistant <span class="badge exists">Exists (Cowork Plugin)</span> <span class="badge platform">Cowork</span></div>
-<div class="agent-desc">Alfonso's personal work assistant. Handles communication, scheduling, meeting prep, team lookups, Slack/email triage, drafting messages, weekly planning, and general work orchestration.</div>
+<div class="agent-desc">Alfonso's personal work assistant with deep workflow integration. Manages a ClickUp Focus Board (task inbox with strict field discipline), runs morning briefings, preps meetings (pulls attendee context from Slack/Calendar), triages Slack/email, drafts messages matching Alfonso's tone, runs weekly reviews, and orchestrates cross-plugin workflows.</div>
 <div class="agent-expand">
-<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Slack, Gmail, Calendar, ClickUp, Notion</span></div>
-<div class="agent-highlight">&#127919; Template for per-role assistants. Each PMM/CSM/AE could get their own version.</div>
-<div class="agent-process-ref">Cowork plugin: personal-assistant</div>
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Slack, Gmail, Calendar, ClickUp, Notion, Google Drive</span><span>&#9889; <strong>Sub-commands:</strong> morning-briefing, catch-me-up, check-channel, draft-message, prepare-meeting, weekly-review</span></div>
+<div class="agent-highlight">&#127919; Template for per-role assistants. Each PMM/CSM/AE gets their own version with role-specific channels, dashboards, and priorities. Cross-plugin authority: owns the Focus Board that all other plugins respect.</div>
+<div class="agent-process-ref">Cowork plugin: personal-assistant &middot; Sub-commands: 6 specialized workflows</div>
 </div>
 </div>
 
 <div class="agent-card exists" data-status="exists" data-team="Cross" data-platform="Cowork">
 <div class="agent-name">29. Contract Creator <span class="badge exists">Exists (Cowork Plugin)</span> <span class="badge platform">Cowork</span></div>
-<div class="agent-desc">Automates creation, renewal, and eSignature of Dolead EMEA freelance contracts in Google Docs. Handles the full contract lifecycle: duplicate a reference contract, adapt fields, send for eSignature, track signing status.</div>
+<div class="agent-desc">Automates the full EMEA freelance contract lifecycle in Google Docs. 8-phase workflow: search Drive for existing contracts, duplicate reference, bulk Find &amp; Replace (7-round replacement engine), update multi-line Article 3 tasks, verify zero leftover placeholders, request missing billing info, organize in Drive, and send for eSignature with field placement.</div>
 <div class="agent-expand">
-<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Google Docs, eSignature</span></div>
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Google Docs, Google Drive, Gmail, eSignature</span><span>&#128203; <strong>Active freelancers:</strong> Laura Pesca, Eliza Petikyan, Marie Ikorichene, Thomas Dardare, Diana Quintero, Emanuela Ferraro</span></div>
 <div class="agent-process-ref">Cowork plugin: freelance-contract-creator</div>
 </div>
 </div>
@@ -467,9 +467,9 @@
 </thead>
 <tbody>
 <tr class="magnus-row"><td>0</td><td><strong>Magnus</strong></td><td>Orchestrator</td><td>&#128309; New</td><td>Neural Box</td><td>Central router for all 69 Doleaders</td></tr>
-<tr><td>1</td><td>TechOps Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>Full pipeline diagnostics (50+ patterns)</td></tr>
-<tr><td>2</td><td>Studio Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>LP design, CRO, compliance</td></tr>
-<tr><td>3</td><td>WebService-Plug</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous WS integration</td></tr>
+<tr><td>1</td><td>TechOps Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>Full pipeline diagnostics (50+ patterns, 5 playbooks)</td></tr>
+<tr><td>2</td><td>Studio Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>LP design, CRO, compliance (11 capabilities)</td></tr>
+<tr><td>3</td><td>WebService-Plug</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous WS integration (working prototype)</td></tr>
 <tr><td>4</td><td>TechOps-Tickets</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Auto-resolve P3/P4 tickets</td></tr>
 <tr><td>5</td><td>LP-Builder</td><td>TechOps</td><td>&#128992; Partial</td><td>Both</td><td>LP creation from brief</td></tr>
 <tr><td>6</td><td>LDR-Plug</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Automated LDR setup &amp; import</td></tr>
@@ -494,8 +494,8 @@
 <tr><td>25</td><td>Forecast</td><td>RevOps</td><td>&#128994; Exists</td><td>Neural Box</td><td>Quant + qualitative forecast</td></tr>
 <tr><td>26</td><td>Dashboard-Builder</td><td>RevOps</td><td>&#128309; New</td><td>Neural Box</td><td>Looker from natural language</td></tr>
 <tr><td>27</td><td>Morning-Brief</td><td>Cross</td><td>&#128994; Exists</td><td>Both</td><td>Personalized daily briefing</td></tr>
-<tr><td>28</td><td>Personal Assistant</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Work orchestration (template for all)</td></tr>
-<tr><td>29</td><td>Contract Creator</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Freelance contract automation</td></tr>
+<tr><td>28</td><td>Personal Assistant</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Work orchestration + Focus Board (template for all)</td></tr>
+<tr><td>29</td><td>Contract Creator</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Full contract lifecycle (8-phase automation)</td></tr>
 <tr><td>30</td><td>ClickUp-Ops</td><td>Cross</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous ClickUp for all agents</td></tr>
 </tbody>
 </table>
@@ -509,7 +509,7 @@
 <svg class="footer-logo" width="148" height="48" viewBox="0 0 148 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M43.598 12.912c2.352 0 4.407.455 6.166 1.366 1.78.89 3.146 2.183 4.1 3.877.974 1.674 1.462 3.634 1.462 5.88s-.488 4.195-1.462 5.848c-.954 1.652-2.32 2.924-4.1 3.814-1.758.868-3.814 1.303-6.166 1.303h-7.214V12.912h7.214zm0 19.132c2.585 0 4.566-.7 5.943-2.098 1.377-1.398 2.066-3.369 2.066-5.911 0-2.564-.689-4.566-2.066-6.007-1.377-1.44-3.358-2.161-5.943-2.161h-3.591v16.177h3.591zM66.512 35.286c-1.653 0-3.147-.371-4.481-1.113-1.335-.763-2.384-1.822-3.147-3.178-.762-1.377-1.143-2.966-1.143-4.767 0-1.78.392-3.358 1.176-4.735.784-1.377 1.854-2.437 3.21-3.178 1.356-.742 2.871-1.112 4.544-1.112 1.674 0 3.189.37 4.545 1.112 1.356.742 2.426 1.801 3.21 3.178.784 1.377 1.176 2.956 1.176 4.736 0 1.78-.403 3.358-1.208 4.735-.805 1.377-1.907 2.447-3.305 3.21-1.377.741-2.903 1.112-4.577 1.112zm0-3.147c.933 0 1.801-.222 2.606-.668.827-.445 1.494-1.112 2.003-2.002.508-.89.763-1.97.763-3.242 0-1.271-.244-2.341-.731-3.21-.488-.89-1.134-1.557-1.94-2.002-.805-.445-1.673-.668-2.606-.668-.932 0-1.801.223-2.606.668-.784.445-1.41 1.112-1.875 2.002-.467.869-.7 1.939-.7 3.21 0 1.886.477 3.348 1.43 4.386.975 1.017 2.193 1.526 3.655 1.526zM82.806 11.481V35h-3.623V11.481h3.623zM103.612 25.815c0 .657-.042 1.25-.127 1.78H90.105c.106 1.398.625 2.521 1.557 3.369.933.847 2.077 1.271 3.433 1.271 1.949 0 3.326-.816 4.131-2.447h3.91c-.53 1.61-1.494 2.934-2.892 3.972-1.377 1.017-3.094 1.526-5.149 1.526-1.674 0-3.178-.371-4.513-1.113-1.314-.763-2.352-1.822-3.115-3.178-.741-1.377-1.112-2.966-1.112-4.767 0-1.801.36-3.38 1.081-4.735.741-1.377 1.77-2.437 3.083-3.178 1.335-.742 2.86-1.112 4.577-1.112 1.652 0 3.125.36 4.417 1.08 1.293.72 2.299 1.738 3.02 3.051.72 1.293 1.08 2.787 1.08 4.482zm-3.782-1.144c-.021-1.335-.498-2.405-1.43-3.21-.933-.805-2.088-1.208-3.465-1.208-1.25 0-2.32.403-3.21 1.208-.89.784-1.42 1.854-1.59 3.21h9.695zM105.97 26.164c0-1.758.36-3.316 1.08-4.672.742-1.356 1.738-2.405 2.988-3.147 1.271-.762 2.67-1.144 4.196-1.144 1.377 0 2.574.276 3.591.826 1.038.53 1.865 1.197 2.479 2.003v-2.543h3.655V35h-3.655v-2.606c-.614.826-1.451 1.526-2.511 2.077-1.06.55-2.267.826-3.623.826-1.505 0-2.882-.382-4.132-1.144-1.25-.784-2.246-1.864-2.988-3.242-.72-1.398-1.08-2.977-1.08-4.735zm14.333.064c0-1.208-.254-2.256-.763-3.146-.487-.89-1.133-1.568-1.938-2.034-.805-.466-1.674-.7-2.606-.7-.933 0-1.801.234-2.606.7-.805.444-1.462 1.112-1.971 2.002-.488.869-.731 1.907-.731 3.115 0 1.208.243 2.267.731 3.178.509.911 1.166 1.61 1.971 2.098.826.466 1.695.7 2.606.7.932 0 1.801-.234 2.606-.7.805-.466 1.451-1.144 1.938-2.034.51-.91.763-1.95.763-3.178zM127.509 26.164c0-1.758.36-3.316 1.081-4.672.741-1.356 1.737-2.405 2.987-3.147 1.271-.762 2.68-1.144 4.227-1.144 1.144 0 2.267.254 3.369.763 1.123.487 2.013 1.144 2.669 1.971V11.481h3.655V35h-3.655v-2.638c-.593.847-1.419 1.547-2.479 2.098-1.038.55-2.235.826-3.591.826-1.526 0-2.924-.382-4.174-1.144-1.25-.784-2.246-1.864-2.987-3.242-.721-1.398-1.081-2.977-1.081-4.735zm14.333.064c0-1.208-.254-2.256-.762-3.146-.488-.89-1.134-1.568-1.939-2.034-.805-.466-1.674-.7-2.606-.7-.932 0-1.801.234-2.606.7-.805.444-1.462 1.112-1.971 2.002-.487.869-.731 1.907-.731 3.115 0 1.208.244 2.267.731 3.178.51.911 1.166 1.61 1.971 2.098.826.466 1.695.7 2.606.7.932 0 1.801-.234 2.606-.7.805-.466 1.451-1.144 1.939-2.034.508-.91.762-1.95.762-3.178zM8.726 22.958a4.363 4.363 0 11-8.726 0 4.363 4.363 0 018.726 0z" fill="#0F2041"/><path d="M27.483 25.6c2.023-1.19 2.023-4.116 0-5.306L12.336 11.388c-2.051-1.206-4.637.273-4.637 2.653v4.352a5.9 5.9 0 012.566 4.64 5.9 5.9 0 01-2.566 4.639v4.182c0 2.38 2.586 3.859 4.637 2.653L27.483 25.6z" fill="#0F2041"/></svg>
 <p>Dolead AI Agents Masterplan v2.0 (31 agents) &middot; March 2026 &middot; Confidential</p>
 <p>Original: Arthur Saint-Pere &middot; Updated: Alfonso Canovas</p>
-<p>Sources: Proven Process, Role Guides, Slack analysis, Cowork plugin knowledge bases, Neural Box architecture docs</p>
+<p>Sources: Proven Process, Role Guides, Slack analysis, Cowork plugin knowledge bases, Neural Box architecture docs, Cowork plugin SKILL.md files</p>
 </div>
 </footer>
 
