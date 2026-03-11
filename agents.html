@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Catalog — Dolead AI Masterplan</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-body">
+
+<nav class="nav">
+<div class="nav-inner">
+<a href="index.html" class="nav-logo">
+<img src="https://cdn.prod.website-files.com/67c93f279a8781c685d242b9/67e6a93d24de4eafbcb801c3_Dolead%20Logo.svg" alt="Dolead">
+<span>AI Masterplan</span>
+</a>
+<div class="nav-links">
+<a href="index.html">Overview</a>
+<a href="agents.html" class="active">Agents</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="vlad-meeting.html">Vlad Meeting</a>
+<a href="changelog.html">Changelog</a>
+</div>
+<button class="hamburger" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+<div class="filter-bar-inner">
+<div class="filter-group">
+<span class="filter-group-label">Status</span>
+<button class="filter-btn active" data-filter="status" data-value="all">All (<span class="count-all">31</span>)</button>
+<button class="filter-btn" data-filter="status" data-value="exists">Exists (<span class="count-exists">10</span>)</button>
+<button class="filter-btn" data-filter="status" data-value="partial">Partial (<span class="count-partial">5</span>)</button>
+<button class="filter-btn" data-filter="status" data-value="new">New (<span class="count-new">16</span>)</button>
+</div>
+<div class="filter-group">
+<span class="filter-group-label">Team</span>
+<select class="filter-select" id="team-filter">
+<option value="all">All Teams</option>
+<option value="TechOps">TechOps</option>
+<option value="Traffic">Traffic</option>
+<option value="PMM">PMM</option>
+<option value="CSM">CSM</option>
+<option value="Sales">Sales</option>
+<option value="RevOps">RevOps</option>
+<option value="Cross">Cross-Functional</option>
+</select>
+</div>
+<div class="filter-group">
+<span class="filter-group-label">Platform</span>
+<select class="filter-select" id="platform-filter">
+<option value="all">All Platforms</option>
+<option value="Cowork">Cowork</option>
+<option value="Neural Box">Neural Box</option>
+<option value="Both">Both</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="container" style="padding-top: 130px;">
+
+<!-- MAGNUS (always visible) -->
+<div class="role-section" data-team="Orchestrator">
+<div class="role-header">
+<div class="role-icon" style="background: linear-gradient(135deg, #0F2041, #2563EB);">&#129504;</div>
+<div><h2>Orchestrator</h2><div class="role-desc">Single entry point for every Doleader, routes to the right specialist agent</div></div>
+</div>
+
+<div class="agent-card magnus" data-status="new" data-team="Orchestrator" data-platform="Neural Box" id="magnus-card">
+<div class="agent-name">0. Magnus <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Central intelligence layer. Every Doleader talks to Magnus via Slack. Magnus understands who's asking (role, squad, clients), what they need, and routes to the right specialist agent (or chains multiple agents). Handles intent recognition, context injection, multi-agent chaining, result consolidation, and fallback routing.</div>
+<div class="magnus-flow">
+<div class="step">&#128100; Doleader asks in Slack</div>
+<div class="flow-arrow">&#8594;</div>
+<div class="step">&#129504; Magnus routes</div>
+<div class="flow-arrow">&#8594;</div>
+<div class="step">&#9889; Specialist agent(s) execute</div>
+<div class="flow-arrow">&#8594;</div>
+<div class="step">&#9989; Consolidated response</div>
+</div>
+<div class="agent-meta" style="margin-top: 14px;"><span>&#128100; <strong>Serves:</strong> Every Doleader (69 employees)</span><span>&#128205; <strong>Entry:</strong> Slack, Cowork, API</span><span>&#9889; <strong>Chains:</strong> All 30 specialist agents</span></div>
+<div class="agent-expand">
+<div class="agent-highlight">&#127919; Key principle: nobody needs to know which agent to call. Magnus figures it out.</div>
+<div class="agent-process-ref">Architecture: Router Agent pattern on Neural Box &middot; Proven Process: All pillars</div>
+</div>
+</div>
+</div>
+
+<!-- TECHOPS -->
+<div class="role-section" data-team="TechOps">
+<div class="role-header">
+<div class="role-icon" style="background:#6366F1;">&#9881;&#65039;</div>
+<div>
+<h2>TechOps</h2>
+<div class="role-desc">Alfonso Canovas (Manager), Nawaf Nour Eddine, Praveen Arivazhagan &middot; Karel van Oordt (.ext, NAM) &middot; Studio EMEA: Diana Quintero, Thomas Dardare, M&#233;lissa Fazer, Emanuela Ferraro (.ext) &middot; Studio NAM: Felicitas Illana, Maria Fernanda Batlle &middot; WS Devs: Francois Chapuis (.ext), Eleonore Schmitt (.ext)</div>
+</div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card exists" data-status="exists" data-team="TechOps" data-platform="Cowork">
+<div class="agent-name">1. TechOps Expert <span class="badge exists">Exists (Cowork Plugin v2.0)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Full pipeline diagnostic agent. Diagnoses why campaigns stop delivering, why leads get refused, and why billable rates drop. Covers the full path from lead capture through distribution, validation, and client delivery. Encodes 50+ resolved ticket patterns.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Admin, Ops, Looker, Campaigns</span><span>&#128200; <strong>Patterns:</strong> 50+ resolved tickets</span></div>
+<div class="agent-highlight">&#127919; Already operational. Handles: campaign status, capping, lead validation, refusals, BR drops, NRR analysis, distribution config.</div>
+<div class="agent-process-ref">Cowork plugin: techops-expert v2.0 &middot; Could be ported to Neural Box for Slack access</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists" data-team="TechOps" data-platform="Cowork">
+<div class="agent-name">2. Studio Expert <span class="badge exists">Exists (Cowork Plugin v3.0)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Landing page design, CRO optimization, and Studio UI operations. Can both recommend strategy and execute changes directly in Studio. Owns LP compliance checks, A/B test design, variant creation, survey builder, and performance analysis.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Studio, Looker 2209</span><span>&#128200; <strong>Knowledge:</strong> CRO frameworks, LIFT/PIE/ICE</span></div>
+<div class="agent-highlight">&#127919; Already operational. Partially overlaps with Arthur's LP-Builder (#3) and LP-ABTest (#14).</div>
+<div class="agent-process-ref">Cowork plugin: studio-expert v3.0 &middot; Sub-skill: lp-compliance-check</div>
+</div>
+</div>
+
+<div class="agent-card partial" data-status="partial" data-team="TechOps" data-platform="Neural Box">
+<div class="agent-name">3. WebService-Plug <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Automates new client webservice integration: reads client API docs, configures the endpoint in admin.dolead.com, runs end-to-end test leads, validates delivery, reports results.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> WS Devs team</span><span>&#128205; <strong>Tool:</strong> admin.dolead.com</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Client Activation, Web Service</div>
+</div>
+</div>
+
+<div class="agent-card partial" data-status="partial" data-team="TechOps" data-platform="Neural Box">
+<div class="agent-name">4. TechOps-Tickets <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Handles incoming tickets from #techops-requests, #webservice, #studio-requests. Triages by priority (P1-P4), auto-resolves simple requests, routes complex ones to humans with context.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Channels:</strong> #techops-requests, #webservice, #tech_hotline</span><span>&#9201;&#65039; <strong>Target:</strong> P3/P4 tickets auto-resolved</span></div>
+<div class="agent-process-ref">Proven Process: TechOps ticket flow (P1-P4 priority system)</div>
+</div>
+</div>
+
+<div class="agent-card partial" data-status="partial" data-team="TechOps" data-platform="Both">
+<div class="agent-name">5. LP-Builder <span class="badge partial">Partial</span> <span class="badge platform">Cowork + Neural Box</span></div>
+<div class="agent-desc">Creates landing pages from brief/template in Studio. Takes the client brief from the Immersion call, generates LP content, builds it in the LP platform, submits for client validation.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Studio team</span><span>&#128205; <strong>Tool:</strong> studio.dolead.com</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Client Activation, Launch Process (LP creation Day 3-7)</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="TechOps" data-platform="Neural Box">
+<div class="agent-name">6. LDR-Plug <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Automates Lead Disposition Report setup. Client sends CSV by email (or shared Google Sheet) with Lead ID + CRM statuses. Agent: parses the file, builds the Quality Matrix, configures the automated import in app.dolead.com, validates first import vs raw file, monitors daily data flow.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> TechOps team (Nawaf, Praveen, Karel)</span><span>&#128205; <strong>Channel:</strong> #feedback_loop_project</span></div>
+<div class="agent-highlight">&#127919; Key process: CSM negotiates format, Agent builds matrix, Auto-import daily</div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Feedback Loop</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="TechOps" data-platform="Neural Box">
+<div class="agent-name">7. LDR-Troubleshooter <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Proactive diagnostics on LDR data quality. Monitors daily and auto-detects 9 problem categories from real CSM escalations: file not received, data corrupted, new CRM status not mapped, automation broken, and more.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> CSMs + TechOps (Nawaf, Praveen, Karel, Peter)</span><span>&#128205; <strong>Channels:</strong> #feedback_loop_project, client channels</span></div>
+<div class="agent-highlight">&#127919; Source: Analysis of 60+ real Slack escalation messages (Dec 2025 - Mar 2026)</div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Feedback Loop, TechOps: LDR/FBL setup</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="TechOps" data-platform="Neural Box">
+<div class="agent-name">8. Tech-Ticket <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Handles ALL internal tickets created by users (and eventually by other agents). Ingests tickets from ClickUp/Slack, classifies by type and urgency, attempts auto-resolution for known patterns, escalates with full context when human needed.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Scope:</strong> All ClickUp tickets, not just TechOps</span><span>&#9201;&#65039; <strong>Target:</strong> 60%+ auto-resolution</span></div>
+<div class="agent-process-ref">Proven Process: All pillars - cross-functional ticket system</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- TRAFFIC -->
+<div class="role-section" data-team="Traffic">
+<div class="role-header">
+<div class="role-icon" style="background:#F59E0B;">&#128202;</div>
+<div>
+<h2>Traffic Manager (TM)</h2>
+<div class="role-desc">EMEA: Manu Gaud (TL), Dario Diaz (.ext), Fabio Cassano (.ext), Francesco Cifardi (.ext) &middot; NAM (.ext): Maria Fernanda Batlle, Livia Fontana, Gabriela Cortez, Fernando Umbert, Deivid Kich</div>
+</div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card new" data-status="new" data-team="Traffic" data-platform="Neural Box">
+<div class="agent-name">9. TrafficOptimizer-Search <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Daily Google/Bing Ads optimization: bid adjustments, budget pacing, negative keyword management, search term analysis, Quality Score monitoring, campaign anomaly detection.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Search TMs</span><span>&#128205; <strong>Platforms:</strong> Google Ads, Bing Ads</span></div>
+<div class="agent-process-ref">TM Role Guide: Campaign optimization, budget pacing, quality first</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="Traffic" data-platform="Neural Box">
+<div class="agent-name">10. TrafficOptimizer-Social <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Daily Meta + TikTok Ads optimization (unified agent, all social channels): audience management, creative rotation, funnel optimization, pixel monitoring, spend allocation across ad sets.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Social TMs (EMEA + NAM)</span><span>&#128205; <strong>Platforms:</strong> Meta Ads, TikTok Ads</span></div>
+<div class="agent-process-ref">TM Role Guide: Platform-specific Meta/TikTok + Test &amp; Learn</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="Traffic" data-platform="Neural Box">
+<div class="agent-name">11. Campaign-Watch <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Real-time monitoring across all campaigns. Detects: CPC spikes, CVR drops, billable rate collapses, budget overspend, tracking failures, ad disapprovals. Alerts the squad Slack channel with root cause diagnosis.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Augments:</strong> All TMs + PMMs</span><span>&#9201;&#65039; <strong>Target:</strong> Alert within 1h of anomaly</span></div>
+<div class="agent-process-ref">Business Model: NRR Root Cause Analysis (4 causes) - Monitoring Thresholds (BR +/-5%, CVR +/-10%)</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PMM -->
+<div class="role-section" data-team="PMM">
+<div class="role-header">
+<div class="role-icon" style="background:#10B981;">&#128640;</div>
+<div>
+<h2>Performance Marketing Manager (PMM)</h2>
+<div class="role-desc">EMEA: Marc-Henri Guannel (TL), Aziz Aouni, Daria Zasadskaya, Christopher Freeman, Omar Guemra (.ext) &middot; NAM: Emily Beckner (Head), Kara Ortiz, Allyson Vogl, Sravani Vakacherla</div>
+</div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card new" data-status="new" data-team="PMM" data-platform="Neural Box">
+<div class="agent-name">12. Market-Intel <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Pre-launch category analysis. Pulls AdsInsights data (competitor ad spend, creatives, landing pages, volumes), produces market sizing report: estimated volume, CPC benchmarks, competitor landscape, recommended PPL range, NRR projection.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> AdsInsights (#proj-adsinsights-bi)</span><span>&#128100; <strong>Augments:</strong> PMMs + Sales at Deal Desk</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 2 - Competition Monitoring with AdsInsights</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="PMM" data-platform="Neural Box">
+<div class="agent-name">13. Launch-Pilot <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Manages the end-to-end launch process: creates ClickUp tasks from the standard template, tracks deadlines (KO to Immersion to Strategy to Go Live to 24h Check), pings responsible parties when tasks are late.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> ClickUp, Slack</span><span>&#9201;&#65039; <strong>Target:</strong> KO within 48h, Go Live within 14 days</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Launch Process (full timeline)</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="PMM" data-platform="Neural Box">
+<div class="agent-name">14. NRR-Optimizer <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Continuous NRR monitoring per client/category. When NRR drops below target, auto-runs Root Cause analysis (CPC? CVR? Billable Rate? PPL mix?), generates diagnostic report, proposes specific action plan.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> All PMMs</span><span>&#128205; <strong>Data:</strong> Looker Squad Daily + Quality KPI dashboards</span></div>
+<div class="agent-process-ref">PMM Role Guide: NRR Management - Root Cause Framework</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="PMM" data-platform="Neural Box">
+<div class="agent-name">15. Quality-Optimizer <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Proactive lead quality optimization engine. Tests 2FA on a portion of traffic, adjusts PPL pricing per campaign type, adds/removes lead filters, proposes ad creative changes. Operates on a test-then-scale logic.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> All PMMs + TMs</span><span>&#128205; <strong>Levers:</strong> 2FA, pricing, filters, ads, targeting</span></div>
+<div class="agent-highlight">&#127919; Core engine: bridges TrafficOptimizer agents + NRR-Optimizer</div>
+<div class="agent-process-ref">Proven Process: Pillar 4 - Scale &amp; Run (continuous optimization)</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="PMM" data-platform="Both">
+<div class="agent-name">16. LP-ABTest <span class="badge new">New</span> <span class="badge platform">Cowork + Neural Box</span></div>
+<div class="agent-desc">Tests LP variants systematically: headline alternatives, hero image, CTA placement, social proof blocks, form position, page length. Sets up split traffic, monitors CVR per variant, calls statistical significance.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> PMMs + TMs</span><span>&#128205; <strong>Tool:</strong> studio.dolead.com</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Test &amp; Learn</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="PMM" data-platform="Neural Box">
+<div class="agent-name">17. Form-ABTest <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Optimizes the lead capture form itself. Tests: number of steps, question order, answer options, conditional logic, progress bar, CTA wording. Measures micro-conversions at each step. Critical CVR lever: form step changes can swing CVR 15-25%.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> PMMs + TechOps</span><span>&#128205; <strong>Metrics:</strong> Step-by-step drop-off, overall CVR, billable rate impact</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 4 - Scale &amp; Run</div>
+</div>
+</div>
+
+<div class="agent-card partial" data-status="partial" data-team="PMM" data-platform="Neural Box">
+<div class="agent-name">18. ABTest-Orchestrator <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Manages the overall A/B testing pipeline across all test types (LP, Form, Creative, Bid, Audience). Proposes tests based on performance data, prioritizes by expected impact, assigns to the right sub-agent, monitors statistical significance.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> PMMs + TMs + Studio</span><span>&#128205; <strong>Coordinates:</strong> LP-ABTest, Form-ABTest, TrafficOptimizers</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 3 - Test &amp; Learn</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- CSM -->
+<div class="role-section" data-team="CSM">
+<div class="role-header">
+<div class="role-icon" style="background:#EF4444;">&#129309;</div>
+<div>
+<h2>Customer Success Manager (CSM / AM)</h2>
+<div class="role-desc">EMEA: Nicolas Gosset (A), Maria Gonzalez (B), Brezo Sanchez-Oca&#241;a (C), Callum Downs (D) &middot; NAM: Emily Kingston, Cayden Orred, Sofia Vorontsova, James Collins</div>
+</div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card new" data-status="new" data-team="CSM" data-platform="Neural Box">
+<div class="agent-name">19. BR-Prep <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Auto-generates Business Review slides following the mandatory flow: Meet the team, What we've been working on, Results (Billable leads, Sales &amp; Quality, Traffic sources), Next Steps. Pulls data from Looker, screenshots dashboards, assembles in Google Slides template.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Cadence:</strong> Monthly (MBR) + Quarterly (QBR)</span><span>&#9201;&#65039; <strong>Saves:</strong> 3-5h per BR per CSM</span></div>
+<div class="agent-process-ref">CSM Role Guide: BR Slides - Mandatory Flow (6 steps)</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="CSM" data-platform="Neural Box">
+<div class="agent-name">20. Quality-Monitor <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Daily automated quality check per client: opens Quality Dashboard in Looker, checks North Star Metric trends, monitors % leads with feedback, flags deterioration. Posts a daily quality digest in each client Slack channel.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Data:</strong> Looker Quality KPI Dashboards (1525, 1556)</span><span>&#128100; <strong>Augments:</strong> All CSMs</span></div>
+<div class="agent-process-ref">CSM Role Guide: Daily routine (check Quality Dashboard)</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="CSM" data-platform="Neural Box">
+<div class="agent-name">21. LDR-Monitor <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Monitors Lead Disposition Report data flow daily. Checks data freshness, accuracy, feedback %, Quality Matrix consistency. Alerts CSM same-day if LDR breaks. Auto-generates LDR status update for client channel.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> app.dolead.com, Looker</span><span>&#128100; <strong>Augments:</strong> All CSMs</span></div>
+<div class="agent-process-ref">CSM Role Guide: LDR section - Daily monitoring</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SALES -->
+<div class="role-section" data-team="Sales">
+<div class="role-header">
+<div class="role-icon" style="background:#8B5CF6;">&#128188;</div>
+<div>
+<h2>Sales (AE / BDR)</h2>
+<div class="role-desc">EMEA: Hugo Travaille (Head), Adrian Angulo &middot; NAM: Matt Segien (Head), Jon Allard, Gregory Strait, Sebastian Guevara &middot; BDRs: Alvaro Vivas, Fabiola De Abreu, Massimo Gazzola, Jean Mosquera, Idriss Mdidech (.ext)</div>
+</div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card exists" data-status="exists" data-team="Sales" data-platform="Neural Box">
+<div class="agent-name">22. DealDesk <span class="badge exists">Exists (Neural Box)</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">When a deal reaches the Deal Desk stage in HubSpot, agent auto-runs Deal Scorecard calculation, pulls historical performance for similar categories/countries, validates PPL range vs market data, flags risks.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Skill:</strong> sales /deal-score</span><span>&#128100; <strong>Augments:</strong> AEs + Deal Desk owners</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 2 - Deal Desk + Deal Scorecard</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists" data-team="Sales" data-platform="Neural Box">
+<div class="agent-name">23. CallPrep <span class="badge exists">Exists (Neural Box)</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Pre-call: researches prospect (LinkedIn, website, AdsInsights competitive data), prepares discovery brief. Post-call: summarizes Fathom recording into structured notes, logs to HubSpot. Proposes deal stage progression.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Skill:</strong> sales /call-summary</span><span>&#128295; <strong>Tool:</strong> HubSpot, Fathom</span></div>
+<div class="agent-process-ref">AE Role Guide: Discovery &amp; Solution Design</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="Sales" data-platform="Neural Box">
+<div class="agent-name">24. Outbound-Prospector <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Automated prospecting: identifies target accounts via LinkedIn Sales Navigator + AdsInsights, enriches contacts, drafts personalized outreach sequences, manages follow-ups. Feeds Discovery Booked pipeline stage in HubSpot.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> BDR team + AEs</span><span>&#128295; <strong>Tools:</strong> LinkedIn Sales Navigator, HubSpot, AdsInsights</span></div>
+<div class="agent-process-ref">AE Role Guide: Daily routine - Prospecting block</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- REVOPS -->
+<div class="role-section" data-team="RevOps">
+<div class="role-header">
+<div class="role-icon" style="background:#06B6D4;">&#128200;</div>
+<div>
+<h2>RevOps / Sales Ops</h2>
+<div class="role-desc">EMEA: Thibault Felix de Valois (Sales Ops, under Esther Tabet), Nicolas Georges (Data) &middot; NAM: Theo Causse (RevOps, under Hadrien)</div>
+</div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card exists" data-status="exists" data-team="RevOps" data-platform="Neural Box">
+<div class="agent-name">25. Forecast <span class="badge exists">Exists (Neural Box)</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Aggregates quantitative data (Looker GR/NR/NRR actuals + pipeline) with qualitative context to produce a structured forecast. Auto-updates weekly. Flags divergence between landing and confirmed orders.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Skill:</strong> sales /forecast</span><span>&#128200; <strong>Data:</strong> Looker #2072 + forecast-context.md</span></div>
+<div class="agent-process-ref">Proven Process: Pillar 4 - Forecasting</div>
+</div>
+</div>
+
+<div class="agent-card new" data-status="new" data-team="RevOps" data-platform="Neural Box">
+<div class="agent-name">26. Dashboard-Builder <span class="badge new">New</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Auto-generates and iterates Looker dashboards from natural language specs. Takes a request like "Show me Online Edu ES quality KPIs with maturity curve" and produces the LookML/dashboard config.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128100; <strong>Augments:</strong> Thibault, Theo, Nicolas Georges</span><span>&#128205; <strong>Tool:</strong> Looker</span></div>
+<div class="agent-process-ref">RevOps Role Guide: Dashboard Management - "Ship V1, iterate"</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- CROSS-FUNCTIONAL -->
+<div class="role-section" data-team="Cross">
+<div class="role-header">
+<div class="role-icon" style="background:#0F2041;">&#127749;</div>
+<div><h2>Cross-Functional (All Roles)</h2><div class="role-desc">Every Doleader</div></div>
+</div>
+
+<div class="agent-grid">
+<div class="agent-card exists" data-status="exists" data-team="Cross" data-platform="Both">
+<div class="agent-name">27. Morning-Brief <span class="badge exists">Exists (Neural Box + Cowork)</span> <span class="badge platform">Both</span></div>
+<div class="agent-desc">Personalized daily briefing. Scans relevant Slack channels, Gmail, Calendar, Looker dashboards. Delivers: urgent items, performance snapshot, what happened in last 24h, today's calendar, priorities.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Exists on:</strong> Neural Box (Arthur) + Cowork (Alfonso)</span><span>&#9201;&#65039; <strong>Target:</strong> Every Doleader, 8AM local time</span></div>
+<div class="agent-highlight">&#127919; Scale from 2 users to all 69 employees, specialized by role</div>
+<div class="agent-process-ref">Proven Process: Pillar 1 - A-Player's Toolkit (daily/weekly routines)</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists" data-team="Cross" data-platform="Cowork">
+<div class="agent-name">28. Personal Assistant <span class="badge exists">Exists (Cowork Plugin)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Alfonso's personal work assistant. Handles communication, scheduling, meeting prep, team lookups, Slack/email triage, drafting messages, weekly planning, and general work orchestration.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Slack, Gmail, Calendar, ClickUp, Notion</span></div>
+<div class="agent-highlight">&#127919; Template for per-role assistants. Each PMM/CSM/AE could get their own version.</div>
+<div class="agent-process-ref">Cowork plugin: personal-assistant</div>
+</div>
+</div>
+
+<div class="agent-card exists" data-status="exists" data-team="Cross" data-platform="Cowork">
+<div class="agent-name">29. Contract Creator <span class="badge exists">Exists (Cowork Plugin)</span> <span class="badge platform">Cowork</span></div>
+<div class="agent-desc">Automates creation, renewal, and eSignature of Dolead EMEA freelance contracts in Google Docs. Handles the full contract lifecycle: duplicate a reference contract, adapt fields, send for eSignature, track signing status.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Platform:</strong> Cowork (Alfonso)</span><span>&#128295; <strong>Tools:</strong> Google Docs, eSignature</span></div>
+<div class="agent-process-ref">Cowork plugin: freelance-contract-creator</div>
+</div>
+</div>
+
+<div class="agent-card partial" data-status="partial" data-team="Cross" data-platform="Neural Box">
+<div class="agent-name">30. ClickUp-Ops <span class="badge partial">Partial</span> <span class="badge platform">Neural Box</span></div>
+<div class="agent-desc">Autonomous ClickUp operator for all roles. Creates tasks from Slack requests or other agents' outputs, updates status/assignees/due dates, posts comments, generates launch task templates, monitors overdue tasks.</div>
+<div class="agent-expand">
+<div class="agent-meta"><span>&#128205; <strong>Tool:</strong> ClickUp API (MCP connector exists)</span><span>&#128100; <strong>Used by:</strong> All roles, all agents</span></div>
+<div class="agent-highlight">&#127919; Backbone infrastructure: enables all process-tracking agents to write to ClickUp autonomously</div>
+<div class="agent-process-ref">Proven Process: All pillars - ClickUp is the central task system</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- SUMMARY TABLE -->
+<div class="section" id="summary-table">
+<div class="section-title">Summary: All 31 Agents</div>
+<div style="overflow-x: auto;">
+<table class="data-table">
+<thead>
+<tr><th>#</th><th>Agent</th><th>Role</th><th>Status</th><th>Platform</th><th>Key Impact</th></tr>
+</thead>
+<tbody>
+<tr class="magnus-row"><td>0</td><td><strong>Magnus</strong></td><td>Orchestrator</td><td>&#128309; New</td><td>Neural Box</td><td>Central router for all 69 Doleaders</td></tr>
+<tr><td>1</td><td>TechOps Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>Full pipeline diagnostics (50+ patterns)</td></tr>
+<tr><td>2</td><td>Studio Expert</td><td>TechOps</td><td>&#128994; Exists</td><td>Cowork</td><td>LP design, CRO, compliance</td></tr>
+<tr><td>3</td><td>WebService-Plug</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous WS integration</td></tr>
+<tr><td>4</td><td>TechOps-Tickets</td><td>TechOps</td><td>&#128992; Partial</td><td>Neural Box</td><td>Auto-resolve P3/P4 tickets</td></tr>
+<tr><td>5</td><td>LP-Builder</td><td>TechOps</td><td>&#128992; Partial</td><td>Both</td><td>LP creation from brief</td></tr>
+<tr><td>6</td><td>LDR-Plug</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Automated LDR setup &amp; import</td></tr>
+<tr><td>7</td><td>LDR-Troubleshooter</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Proactive LDR diagnostics (9 types)</td></tr>
+<tr><td>8</td><td>Tech-Ticket</td><td>TechOps</td><td>&#128309; New</td><td>Neural Box</td><td>Cross-functional ticket auto-resolution</td></tr>
+<tr><td>9</td><td>TrafficOptimizer-Search</td><td>Traffic</td><td>&#128309; New</td><td>Neural Box</td><td>Daily Google/Bing optimization</td></tr>
+<tr><td>10</td><td>TrafficOptimizer-Social</td><td>Traffic</td><td>&#128309; New</td><td>Neural Box</td><td>Daily Meta + TikTok optimization</td></tr>
+<tr><td>11</td><td>Campaign-Watch</td><td>Traffic</td><td>&#128309; New</td><td>Neural Box</td><td>Real-time anomaly detection</td></tr>
+<tr><td>12</td><td>Market-Intel</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>Pre-launch category analysis</td></tr>
+<tr><td>13</td><td>Launch-Pilot</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>End-to-end launch process</td></tr>
+<tr><td>14</td><td>NRR-Optimizer</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>NRR root cause + action plans</td></tr>
+<tr><td>15</td><td>Quality-Optimizer</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>Optimization lever execution</td></tr>
+<tr><td>16</td><td>LP-ABTest</td><td>PMM</td><td>&#128309; New</td><td>Both</td><td>LP layout/content A/B testing</td></tr>
+<tr><td>17</td><td>Form-ABTest</td><td>PMM</td><td>&#128309; New</td><td>Neural Box</td><td>Form step/question optimization</td></tr>
+<tr><td>18</td><td>ABTest-Orchestrator</td><td>PMM</td><td>&#128992; Partial</td><td>Neural Box</td><td>Coordinates all A/B test sub-agents</td></tr>
+<tr><td>19</td><td>BR-Prep</td><td>CSM</td><td>&#128309; New</td><td>Neural Box</td><td>Auto-generate BR slides (saves 3-5h)</td></tr>
+<tr><td>20</td><td>Quality-Monitor</td><td>CSM</td><td>&#128309; New</td><td>Neural Box</td><td>Daily quality digest per client</td></tr>
+<tr><td>21</td><td>LDR-Monitor</td><td>CSM</td><td>&#128309; New</td><td>Neural Box</td><td>Daily LDR health check</td></tr>
+<tr><td>22</td><td>DealDesk</td><td>Sales</td><td>&#128994; Exists</td><td>Neural Box</td><td>Auto deal scoring + validation</td></tr>
+<tr><td>23</td><td>CallPrep</td><td>Sales</td><td>&#128994; Exists</td><td>Neural Box</td><td>Pre/post call briefs + HubSpot</td></tr>
+<tr><td>24</td><td>Outbound-Prospector</td><td>Sales</td><td>&#128309; New</td><td>Neural Box</td><td>Automated prospecting + outreach</td></tr>
+<tr><td>25</td><td>Forecast</td><td>RevOps</td><td>&#128994; Exists</td><td>Neural Box</td><td>Quant + qualitative forecast</td></tr>
+<tr><td>26</td><td>Dashboard-Builder</td><td>RevOps</td><td>&#128309; New</td><td>Neural Box</td><td>Looker from natural language</td></tr>
+<tr><td>27</td><td>Morning-Brief</td><td>Cross</td><td>&#128994; Exists</td><td>Both</td><td>Personalized daily briefing</td></tr>
+<tr><td>28</td><td>Personal Assistant</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Work orchestration (template for all)</td></tr>
+<tr><td>29</td><td>Contract Creator</td><td>Cross</td><td>&#128994; Exists</td><td>Cowork</td><td>Freelance contract automation</td></tr>
+<tr><td>30</td><td>ClickUp-Ops</td><td>Cross</td><td>&#128992; Partial</td><td>Neural Box</td><td>Autonomous ClickUp for all agents</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div><!-- end container -->
+
+<footer class="footer">
+<div class="footer-inner">
+<img src="https://cdn.prod.website-files.com/67c93f279a8781c685d242b9/67e6a93d24de4eafbcb801c3_Dolead%20Logo.svg" alt="Dolead" class="footer-logo">
+<p>Dolead AI Agents Masterplan v2.0 (31 agents) &middot; March 2026 &middot; Confidential</p>
+<p>Original: Arthur Saint-Pere &middot; Updated: Alfonso Canovas</p>
+<p>Sources: Proven Process, Role Guides, Slack analysis, Cowork plugin knowledge bases, Neural Box architecture docs</p>
+</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

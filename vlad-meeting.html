@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vlad Meeting — Dolead AI Masterplan</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-body">
+
+<nav class="nav">
+<div class="nav-inner">
+<a href="index.html" class="nav-logo">
+<img src="https://cdn.prod.website-files.com/67c93f279a8781c685d242b9/67e6a93d24de4eafbcb801c3_Dolead%20Logo.svg" alt="Dolead">
+<span>AI Masterplan</span>
+</a>
+<div class="nav-links">
+<a href="index.html">Overview</a>
+<a href="agents.html">Agents</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="vlad-meeting.html" class="active">Vlad Meeting</a>
+<a href="changelog.html">Changelog</a>
+</div>
+<button class="hamburger" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+
+<div class="container" style="padding-top: 56px;">
+
+<div class="page-header">
+<h1>Vlad Meeting Agenda</h1>
+<p class="page-subtitle">10 topics to align on before building. Alfonso + Vlad convergence meeting.</p>
+</div>
+
+<div style="display: grid; gap: 12px;">
+
+<div class="agenda-card">
+<div class="agenda-num">01</div>
+<h4>Magnus Architecture</h4>
+<p>How does Magnus route requests? Static mapping (keyword to skill) or LLM-based intent recognition? Where does it live (Neural Box)? How does it handle multi-agent chaining?</p>
+<span class="agenda-tag">Architecture</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">02</div>
+<h4>Skill Format Convergence</h4>
+<p>Can Neural Box skills and Cowork plugin SKILL.md files share the same format? Should we standardize on one structure so agents are portable between platforms?</p>
+<span class="agenda-tag">Platform</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">03</div>
+<h4>Cowork-to-Neural-Box Porting</h4>
+<p>How to port TechOps Expert, Studio Expert knowledge to Neural Box? The knowledge bases (50+ patterns, CRO frameworks) are the real asset. Browser automation needs Playwright adaptation.</p>
+<span class="agenda-tag">Platform</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">04</div>
+<h4>User Identity &amp; Permissions</h4>
+<p>When a CSM asks Magnus something, how does Magnus know their squad, clients, permissions? Does Neural Box have a user profile system? How do we map Slack users to Dolead roles?</p>
+<span class="agenda-tag">Architecture</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">05</div>
+<h4>Shared Tool Layer</h4>
+<p>Both platforms use MCP. Can we share the tool definitions (ClickUp, Slack, Looker, Admin, Ops)? Neural Box has 112 tools, some overlap with Cowork connectors.</p>
+<span class="agenda-tag">Architecture</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">06</div>
+<h4>Ad Platform APIs</h4>
+<p>TrafficOptimizer agents need Google Ads, Meta Ads, TikTok Ads API access. Does Neural Box already have these? What auth flow? Rate limits? Read-only first vs read-write?</p>
+<span class="agenda-tag">Platform</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">07</div>
+<h4>Monitoring &amp; Alerting Infrastructure</h4>
+<p>Campaign-Watch, Quality-Monitor, LDR-Troubleshooter all need to run on schedules and push alerts to Slack. Does Neural Box's scheduler support this pattern? What's the latency?</p>
+<span class="agenda-tag">Process</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">08</div>
+<h4>Knowledge Base Architecture</h4>
+<p>Where do agent knowledge bases live? Cowork uses reference .md files that grow over time. Neural Box uses skills repo. How do we keep knowledge in sync across platforms?</p>
+<span class="agenda-tag">Architecture</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">09</div>
+<h4>Cost Model</h4>
+<p>69 users x multiple daily interactions = significant API costs. What's Neural Box's current cost per interaction? Do we need usage tiers? Rate limiting? Model selection per agent (Haiku for simple, Opus for complex)?</p>
+<span class="agenda-tag">Cost</span>
+</div>
+
+<div class="agenda-card">
+<div class="agenda-num">10</div>
+<h4>Phase 1 Scope Agreement</h4>
+<p>Agree on which 8 agents go live first, who owns building each one (Alfonso vs Vlad vs shared), and the timeline. Target: 4 weeks to first Slack-accessible agents.</p>
+<span class="agenda-tag">Process</span>
+</div>
+
+</div>
+
+</div><!-- end container -->
+
+<footer class="footer">
+<div class="footer-inner">
+<img src="https://cdn.prod.website-files.com/67c93f279a8781c685d242b9/67e6a93d24de4eafbcb801c3_Dolead%20Logo.svg" alt="Dolead" class="footer-logo">
+<p>Dolead AI Agents Masterplan v2.0 (31 agents) &middot; March 2026 &middot; Confidential</p>
+<p>Original: Arthur Saint-Pere &middot; Updated: Alfonso Canovas</p>
+</div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
