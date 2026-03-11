@@ -32,7 +32,6 @@ function initCardExpand() {
   var cards = document.querySelectorAll('.agent-card');
   cards.forEach(function(card) {
     card.addEventListener('click', function() {
-      // Toggle this card
       this.classList.toggle('expanded');
     });
   });
@@ -72,6 +71,20 @@ function initFilters() {
       activePlatform = this.value;
       applyFilters();
     });
+  }
+
+  // Read URL params and activate matching filter
+  var params = new URLSearchParams(window.location.search);
+  var urlStatus = params.get('status');
+  if (urlStatus && ['exists', 'partial', 'new'].indexOf(urlStatus) !== -1) {
+    activeStatus = urlStatus;
+    statusBtns.forEach(function(btn) {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-value') === urlStatus) {
+        btn.classList.add('active');
+      }
+    });
+    applyFilters();
   }
 
   function applyFilters() {
